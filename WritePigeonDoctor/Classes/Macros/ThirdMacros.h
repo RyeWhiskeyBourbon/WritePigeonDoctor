@@ -17,5 +17,9 @@
 
 #define JPUSH_KEY @""
 
+//友盟社区
+
+#define UMengCommunityAppkey @"578b015fe0f55a6b7100453b"
+#define UMengCommunityAppSecret @"25b544d60f83824e83ca506eb89474b5"
 
 #endif /* ThirdMacros_h */
