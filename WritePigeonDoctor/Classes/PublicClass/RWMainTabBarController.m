@@ -16,8 +16,6 @@
 
 @property (nonatomic,strong)UIView *coverLayer;
 
-@property (nonatomic,strong)NSArray *names;
-
 @property (nonatomic,strong)NSArray *images;
 
 @property (nonatomic,strong)NSArray *selectImages;
@@ -30,15 +28,11 @@
 
 - (void)toRootViewController
 {
-    for (int i = 0; i < _names.count; i++)
+    for (int i = 0; i < _images.count; i++)
     {
         UIImageView *imageItem = (UIImageView *)[self.view viewWithTag:(i + 1)*10];
         
         imageItem.image = _images[i];
-        
-        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1)*100];
-        
-        nameX.textColor = [UIColor grayColor];
     }
     
     [self selectWithTag:1];
@@ -60,17 +54,15 @@
 
 - (void)initResource
 {
-    _names = @[@"资讯",@"问诊",@"社区",@"更多"];
+    _images = @[[UIImage imageNamed:@"资讯"],
+                [UIImage imageNamed:@"找医生"],
+                [UIImage imageNamed:@"社区"],
+                [UIImage imageNamed:@"我"]];
     
-    _images = @[[UIImage imageNamed:@"noti"],
-                [UIImage imageNamed:@"main"],
-                [UIImage imageNamed:@"media"],
-                [UIImage imageNamed:@"set"]];
-    
-    _selectImages = @[[UIImage imageNamed:@"noti_s"],
-                      [UIImage imageNamed:@"mian_s"],
-                      [UIImage imageNamed:@"media_s"],
-                      [UIImage imageNamed:@"set_s"]];
+    _selectImages = @[[UIImage imageNamed:@"资讯z"],
+                      [UIImage imageNamed:@"找医生z"],
+                      [UIImage imageNamed:@"社区z"],
+                      [UIImage imageNamed:@"我z"]];
 }
 
 - (void)compositionCoverLayer
@@ -109,11 +101,11 @@
 
 - (void)compositionButton
 {
-    CGFloat w = self.tabBar.frame.size.width / _names.count;
+    CGFloat w = self.tabBar.frame.size.width / _images.count;
     
     CGFloat h = self.tabBar.frame.size.height;
     
-    for (int i = 0; i < _names.count; i++)
+    for (int i = 0; i < _images.count; i++)
     {
         [self tabBarButtonWithFrame:CGRectMake(w * i, 0, w, h) AndTag:i+1];
     }
@@ -138,28 +130,10 @@
     
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(view.mas_top).offset(2);
-        make.width.equalTo(@(30));
-        make.height.equalTo(@(30));
+        make.top.equalTo(view.mas_top).offset(0);
+        make.bottom.equalTo(view.mas_bottom).offset(0);
+        make.width.equalTo(@(frame.size.height));
         make.centerX.equalTo(view.mas_centerX).offset(0);
-    }];
-    
-    UILabel *nameLabel = [[UILabel alloc] init];
-    
-    nameLabel.text = _names[tag-1];
-    nameLabel.tag = tag * 100;
-    nameLabel.textAlignment = NSTextAlignmentCenter;
-    nameLabel.font = [UIFont systemFontOfSize:10];
-    nameLabel.textColor = [UIColor grayColor];
-    
-    [view addSubview:nameLabel];
-    
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(imageView.mas_bottom).offset(0);
-        make.left.equalTo(view.mas_left).offset(0);
-        make.right.equalTo(view.mas_right).offset(0);
-        make.bottom.equalTo(view.mas_bottom).offset(-3);
     }];
     
     [self addGestureRecognizerToView:view];
@@ -178,15 +152,11 @@
 
 - (void)cutViewControllerWithGesture:(UITapGestureRecognizer *)tapGesture
 {
-    for (int i = 0; i < _names.count; i++)
+    for (int i = 0; i < _images.count; i++)
     {
         UIImageView *imageItem = (UIImageView *)[self.view viewWithTag:(i + 1)*10];
         
         imageItem.image = _images[i];
-        
-        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1)*100];
-        
-        nameX.textColor = [UIColor grayColor];
     }
     
     [self selectWithTag:tapGesture.view.tag];
@@ -197,10 +167,6 @@
     UIImageView *imageItem = (UIImageView *)[self.view viewWithTag:tag * 10];
     
     imageItem.image = _selectImages[tag - 1];
-    
-    UILabel *nameLabel = [self.view viewWithTag:tag * 100];
-    
-    nameLabel.textColor = __WPD_MAIN_COLOR__;
     
     self.selectedIndex = tag - 1;
 }
