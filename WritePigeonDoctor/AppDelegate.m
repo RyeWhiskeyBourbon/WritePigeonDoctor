@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "UMComSession.h"
+#import "UMCommunity.h"
 #import "RWMainTabBarController.h"
 
 @interface AppDelegate ()
@@ -21,6 +23,10 @@
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [_window makeKeyAndVisible];
+    
+    
+    [UMComSession openLog:YES];
+    [UMCommunity setAppKey:UMengCommunityAppkey withAppSecret:UMengCommunityAppSecret];
     
     RWMainTabBarController *mainTabBar = [[RWMainTabBarController alloc] init];
     

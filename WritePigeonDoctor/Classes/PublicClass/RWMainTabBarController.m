@@ -12,6 +12,8 @@
 #import "RWCommunityController.h"
 #import "RWSettingsViewController.h"
 
+#define LABLETAG 1000
+
 @interface RWMainTabBarController ()
 
 @property (nonatomic,strong)UIView *coverLayer;
@@ -32,11 +34,11 @@
 {
     for (int i = 0; i < _names.count; i++)
     {
-        UIImageView *imageItem = (UIImageView *)[self.view viewWithTag:(i + 1)*10];
+        UIImageView *imageItem = (UIImageView *)[self.view viewWithTag:(i + 1) * 10];
         
         imageItem.image = _images[i];
         
-        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1)*100];
+        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1) * LABLETAG];
         
         nameX.textColor = [UIColor grayColor];
     }
@@ -62,15 +64,15 @@
 {
     _names = @[@"资讯",@"问诊",@"社区",@"更多"];
     
-    _images = @[[UIImage imageNamed:@"noti"],
-                [UIImage imageNamed:@"main"],
-                [UIImage imageNamed:@"media"],
-                [UIImage imageNamed:@"set"]];
-    
-    _selectImages = @[[UIImage imageNamed:@"noti_s"],
-                      [UIImage imageNamed:@"mian_s"],
-                      [UIImage imageNamed:@"media_s"],
-                      [UIImage imageNamed:@"set_s"]];
+//    _images = @[[UIImage imageNamed:@"noti"],
+//                [UIImage imageNamed:@"main"],
+//                [UIImage imageNamed:@"media"],
+//                [UIImage imageNamed:@"set"]];
+//    
+//    _selectImages = @[[UIImage imageNamed:@"noti_s"],
+//                      [UIImage imageNamed:@"mian_s"],
+//                      [UIImage imageNamed:@"media_s"],
+//                      [UIImage imageNamed:@"set_s"]];
 }
 
 - (void)compositionCoverLayer
@@ -147,7 +149,7 @@
     UILabel *nameLabel = [[UILabel alloc] init];
     
     nameLabel.text = _names[tag-1];
-    nameLabel.tag = tag * 100;
+    nameLabel.tag = tag * 1000;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.font = [UIFont systemFontOfSize:10];
     nameLabel.textColor = [UIColor grayColor];
@@ -184,7 +186,7 @@
         
         imageItem.image = _images[i];
         
-        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1)*100];
+        UILabel *nameX = (UILabel *)[self.view viewWithTag:(i + 1) * LABLETAG];
         
         nameX.textColor = [UIColor grayColor];
     }
@@ -198,7 +200,7 @@
     
     imageItem.image = _selectImages[tag - 1];
     
-    UILabel *nameLabel = [self.view viewWithTag:tag * 100];
+    UILabel *nameLabel = [self.view viewWithTag:tag * LABLETAG];
     
     nameLabel.textColor = __WPD_MAIN_COLOR__;
     

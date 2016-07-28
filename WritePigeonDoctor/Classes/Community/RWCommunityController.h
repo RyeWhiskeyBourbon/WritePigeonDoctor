@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UMComCustomMenuViewController.h"
 
 @interface RWCommunityController : UIViewController
 
