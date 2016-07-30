@@ -6,9 +6,9 @@
 //  Copyright © 2016年 RyeWhiskey. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RWWPDBaseController.h"
 #import "UMComCustomMenuViewController.h"
 
-@interface RWCommunityController : UIViewController
+@interface RWCommunityController : RWWPDBaseController
 
 @end

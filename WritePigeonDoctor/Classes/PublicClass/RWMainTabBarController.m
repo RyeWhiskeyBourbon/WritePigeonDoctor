@@ -130,9 +130,9 @@
     
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(view.mas_top).offset(0);
-        make.bottom.equalTo(view.mas_bottom).offset(0);
-        make.width.equalTo(@(frame.size.height));
+        make.top.equalTo(view.mas_top).offset(1);
+        make.bottom.equalTo(view.mas_bottom).offset(-1);
+        make.width.equalTo(@(frame.size.height - 2));
         make.centerX.equalTo(view.mas_centerX).offset(0);
     }];
     

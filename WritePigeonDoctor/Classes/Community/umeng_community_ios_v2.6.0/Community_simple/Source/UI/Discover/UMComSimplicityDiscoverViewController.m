@@ -111,16 +111,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 0;
-    } else if (section == 1) {
-        return 0;
-    } else if (section == 2) {
         return 5;
     } else {
         return 1;
@@ -133,9 +129,7 @@
     UMComSimplicityFindTableViewCell *cell = (UMComSimplicityFindTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    if (indexPath.section == 0 || indexPath.section == 1) {
-        
-    } else if (indexPath.section == 2) {
+    if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0: {
                 cell.titleImageView.image = UMComSimpleImageWithImageName(@"wodedongtai");
@@ -302,31 +296,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 15.f;
-    }else if (section == 1) {
-        return 110.f;
-    } else if (section == 2) {
-        return 15.0f;
-    }else {
-        return 15.0f;
-    }
+    return 15.0f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"UMComSimplicityUserInfoBar" owner:self options:nil];
-        self.userInfoBar = xibs[0];
-        
-        [_userInfoBar refresh];
-        [_userInfoBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(prepareToUserCenter)]];
-        return _userInfoBar;
-    } else {
-
-    }
-    return nil;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 1) {
+//        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"UMComSimplicityUserInfoBar" owner:self options:nil];
+//        self.userInfoBar = xibs[0];
+//        
+//        [_userInfoBar refresh];
+//        [_userInfoBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(prepareToUserCenter)]];
+//        return _userInfoBar;
+//    } else {
+//
+//    }
+//    return nil;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -337,10 +323,6 @@
             [ws.userInfoBar refresh];
             
             if (indexPath.section == 0) {
-                
-            } else if (indexPath.section == 1) {
-
-            } else if (indexPath.section == 2) {
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -363,7 +345,7 @@
                     default:
                         break;
                 }
-            }else if(indexPath.section == 3){
+            }else if(indexPath.section == 1){
                 switch (indexPath.row) {
                     case 0:
                     {

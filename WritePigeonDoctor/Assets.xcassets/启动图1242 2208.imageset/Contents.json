@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "社区z.png",
+      "filename" : "启动图640 960.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "启动图750 1334.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "启动图1242 2208.png",
       "scale" : "3x"
     }
   ],

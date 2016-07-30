@@ -6,8 +6,8 @@
 //  Copyright © 2016年 RyeWhiskey. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RWWPDBaseController.h"
 
-@interface RWDoctorDescriptionController : UIViewController
+@interface RWDoctorDescriptionController : RWWPDBaseController
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 RyeWhiskey. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RWWPDBaseController.h"
 
-@interface RWSettingsViewController : UIViewController
+@interface RWSettingsViewController : RWWPDBaseController
 
 @end

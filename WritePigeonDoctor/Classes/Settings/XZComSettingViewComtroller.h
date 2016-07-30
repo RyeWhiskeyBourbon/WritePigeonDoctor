@@ -1,13 +1,13 @@
 //
-//  RWOfficeListController.h
+//  XZComSettingViewComtroller.h
 //  WritePigeonDoctor
 //
-//  Created by zhongyu on 16/7/27.
+//  Created by ZYJY on 16/7/30.
 //  Copyright © 2016年 RyeWhiskey. All rights reserved.
 //
 
 #import "RWWPDBaseController.h"
 
-@interface RWOfficeListController : RWWPDBaseController
+@interface XZComSettingViewComtroller : RWWPDBaseController
 
 @end
