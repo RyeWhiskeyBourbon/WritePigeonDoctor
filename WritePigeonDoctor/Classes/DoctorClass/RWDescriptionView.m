@@ -605,6 +605,30 @@
 
 - (void)autoLayoutViews
 {
+    CGFloat width = self.bounds.size.width;
+    CGFloat height = self.bounds.size.height;
+    CGFloat titleHeight = height / 50 * 6;
+    
+    [_title mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.mas_left).offset(0);
+        make.right.equalTo(self.mas_right).offset(0);
+        make.top.equalTo(self.mas_top).offset(0);
+        make.height.equalTo(@(titleHeight));
+    }];
+    
+    CGFloat margin = 5.0f;
+    CGFloat itemLength = (width - margin * 2) / 8;
+    
+    CGFloat heightList = itemLength * 4;
+    
+    [_visitHomeList mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.equalTo(self.mas_left).offset(margin);
+        make.top.equalTo(_title.mas_bottom).offset(margin);
+        make.right.equalTo(self.mas_right).offset(margin);
+        make.height.equalTo(@(heightList));
+    }];
     
 }
 

@@ -16,7 +16,22 @@
 #import "RWDataModels.h"
 
 #ifndef __WPD_MAIN_COLOR__
-#define __WPD_MAIN_COLOR__ RGBCOLOR(12,175,255)
+
+#define __WPD_MAIN_COLOR__ [UIColor colorWithRed:43.f/255.f green:141.f/255.f blue:241.f/255.f alpha:1.0]
+#endif
+
+#ifndef __DEFAULT_NAVIGATION_BAR__
+#define __DEFAULT_NAVIGATION_BAR__ [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"渐变"] forBarMetrics:UIBarMetricsDefault]
+#endif
+
+#ifndef __NAVIGATION_DEUAULT_SETTINGS__
+#define __NAVIGATION_DEUAULT_SETTINGS__ \
+        self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];\
+        self.tabBarController.tabBar.translucent = NO;\
+        self.navigationController.navigationBar.translucent = NO;\
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};\
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
 #endif
 
 #ifndef __DEFAULT_NAVIGATION_BAR__

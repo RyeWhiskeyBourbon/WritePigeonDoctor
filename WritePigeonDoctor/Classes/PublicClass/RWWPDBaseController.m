@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
 
+
     __DEFAULT_NAVIGATION_BAR__;
     __NAVIGATION_DEUAULT_SETTINGS__;
     __WPD_BACKGROUND_COLOR__;
