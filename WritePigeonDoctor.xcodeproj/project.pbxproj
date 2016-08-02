@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046C869B1D4EDFFF004DC031 /* XZUMComRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046C869A1D4EDFFF004DC031 /* XZUMComRequest.m */; };
 		123E9BB81D349FC7009B61B5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 123E9BB71D349FC7009B61B5 /* CoreTelephony.framework */; };
 		123E9BBA1D349FDA009B61B5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 123E9BB91D349FDA009B61B5 /* SystemConfiguration.framework */; };
 		123E9BBC1D34A006009B61B5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 123E9BBB1D34A006009B61B5 /* libc++.tbd */; };
@@ -229,6 +230,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046C86991D4EDFFF004DC031 /* XZUMComRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZUMComRequest.h; sourceTree = "<group>"; };
+		046C869A1D4EDFFF004DC031 /* XZUMComRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XZUMComRequest.m; sourceTree = "<group>"; };
 		06B0CD839B2FB4AEC160CE84 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		123E9BB71D349FC7009B61B5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		123E9BB91D349FDA009B61B5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1031,6 +1034,8 @@
 			children = (
 				12F1A0A91D4DA990007B5994 /* RWCommunityController.h */,
 				12F1A0AA1D4DA990007B5994 /* RWCommunityController.m */,
+				046C86991D4EDFFF004DC031 /* XZUMComRequest.h */,
+				046C869A1D4EDFFF004DC031 /* XZUMComRequest.m */,
 				12F1A0AB1D4DA990007B5994 /* umeng_community_ios_v2.6.0 */,
 			);
 			name = Community;
@@ -1819,7 +1824,6 @@
 				126271931D336F7F009D44A0 /* Sources */,
 				126271941D336F7F009D44A0 /* Frameworks */,
 				126271951D336F7F009D44A0 /* Resources */,
-				EE4A4F77A08398E229D1D5E7 /* Embed Pods Frameworks */,
 				FDD97237C4C13A7140D7CE19 /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2002,21 +2006,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EE4A4F77A08398E229D1D5E7 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FDD97237C4C13A7140D7CE19 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2054,6 +2043,7 @@
 				12F1A2271D4DA990007B5994 /* UMImagePickerGroupCell.m in Sources */,
 				12F1A2361D4DA990007B5994 /* UMComAvatarImageView.m in Sources */,
 				12F1A2381D4DA990007B5994 /* UMComSimplicityDiscoverViewController.m in Sources */,
+				046C869B1D4EDFFF004DC031 /* XZUMComRequest.m in Sources */,
 				12F1A2061D4DA990007B5994 /* UMComActionDeleteView.m in Sources */,
 				12FA404C1D46F56E0084D50A /* RWRequsetManager.m in Sources */,
 				12F1A2021D4DA990007B5994 /* UMComSimpleLoginHandler.m in Sources */,

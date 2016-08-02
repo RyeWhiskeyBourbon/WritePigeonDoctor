@@ -57,7 +57,6 @@
         [self.statusBarView removeFromSuperview];
     }
     
-    
     //如果登陆用户的个人中心,就不显示举报
     if ([self.user.uid isEqualToString:[UMComSession sharedInstance].loginUser.uid]) {
          [self.reportBtn removeFromSuperview];
@@ -176,6 +175,7 @@
 
 -(void)refreshUserInfo:(UMComUser*)user
 {
+    
     [self.protrainImageView setImageURL:user.icon_url.small_url_string placeHolderImage:UMComSimpleImageWithImageName(@"um_com_defaultAvatar")];
     
     if (user.feed_count > 0) {
@@ -185,7 +185,6 @@
         self.countLabel.text = [[NSString alloc] initWithFormat:g_userCenter_count_template,(long)0];
     }
 
-    
     self.userName.text = user.name;
     
     if (user.gender.integerValue == 0) {

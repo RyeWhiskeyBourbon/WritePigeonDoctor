@@ -71,7 +71,7 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Jl-HR-dKG" userLabel="line">
-                            <rect key="frame" x="57" y="53.5" width="543" height="1"/>
+                            <rect key="frame" x="57" y="54" width="543" height="1"/>
                             <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="tH4-Aj-SyM"/>
