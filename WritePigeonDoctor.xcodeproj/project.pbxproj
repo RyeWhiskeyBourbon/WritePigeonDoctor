@@ -1923,6 +1923,7 @@
 				TargetAttributes = {
 					126271961D336F7F009D44A0 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 7XNMZG3S4E;
 					};
 					126271AF1D336F7F009D44A0 = {
 						CreatedOnToolsVersion = 7.3;
@@ -2337,6 +2338,8 @@
 			baseConfigurationReference = 9EF87DF12830927924691150 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2356,6 +2359,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = RyeWhiskey.WritePigeonDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WARNING_CFLAGS = (
 					"-Wno-deprecated-declarations",
 					"-Wno-nullability-completeness",
@@ -2368,6 +2372,8 @@
 			baseConfigurationReference = 06B0CD839B2FB4AEC160CE84 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2387,6 +2393,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = RyeWhiskey.WritePigeonDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WARNING_CFLAGS = (
 					"-Wno-deprecated-declarations",
 					"-Wno-nullability-completeness",

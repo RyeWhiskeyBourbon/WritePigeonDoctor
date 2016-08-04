@@ -169,7 +169,7 @@ const NSString *messageVideoBody = @"messageVideoBody";
         }
         case EMMessageBodyTypeVoice:
         {
-            EMVoiceMessageBody *voiceBody = [[EMVoiceMessageBody alloc] initWithData:body[messageVoiceBody] displayName:body[messageVoiceName]];
+            EMVoiceMessageBody *voiceBody = [[EMVoiceMessageBody alloc] initWithLocalPath:body[messageVoiceBody] displayName:body[messageVoiceName]];
             
             voiceBody.duration = [body[messageVoiceDuration] intValue];
             

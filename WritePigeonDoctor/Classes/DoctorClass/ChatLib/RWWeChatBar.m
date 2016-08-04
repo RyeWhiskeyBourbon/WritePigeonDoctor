@@ -99,8 +99,8 @@
     [_delegate sendMessage:
      
      [RWChatMessageMaker messageWithType:EMMessageBodyTypeVoice
-                                    body:@{messageVideoBody:voice,
-                                           messageVideoName:@"mp3.caf",
+                                    body:@{messageVideoBody:path,
+                                           messageVideoName:[RWChatManager voiceName],
                                            messageVoiceDuration:@(second)}
                                extension:nil]
      
@@ -503,6 +503,13 @@
                                                  selector:@selector(keyboardWasHidden:)
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:
+                                            @selector(keyboardWillChangeFrame:)
+                                                     name:
+                                                UIKeyboardWillChangeFrameNotification
+                                                   object:nil];
     }
     
     return self;
@@ -527,6 +534,19 @@
     if (_delegate)
     {
         [_delegate keyBoardWillHidden];
+    }
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];//更改后的键盘
+    
+    CGSize keyboardSize = [aValue CGRectValue].size;
+    
+    if (_delegate)
+    {
+        [_delegate keyboardWillChangeSize:keyboardSize];
     }
 }
 

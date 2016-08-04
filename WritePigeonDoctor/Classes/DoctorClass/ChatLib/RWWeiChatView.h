@@ -42,7 +42,7 @@ CGRect getFitVideoSize(CGSize originalSize,BOOL isMyMessage);
 @protocol RWWeChatViewEvent <NSObject>
 @optional
 
-- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event context:(EMMessage *)context;
+- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event;
 
 - (void)touchSpaceAtwechatView:(RWWeChatView *)wechatView;
 

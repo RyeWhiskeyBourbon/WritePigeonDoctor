@@ -251,7 +251,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
 
 #pragma mark - event Source
 
-- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event context:(EMMessage *)context
+- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event
 {
     [self removeTextMenu];
     
@@ -274,11 +274,11 @@ CGRect getTopRestrain(RWWeChatCell * cell)
             [self addTextMenuWithWechatCell:wechat];
             break;
         case RWMessageEventTapImage:
-            [_eventSource wechatCell:wechat event:event context:context]; break;
+            [_eventSource wechatCell:wechat event:event]; break;
         case RWMessageEventTapVoice:
-            [_eventSource wechatCell:wechat event:event context:context]; break;
+            [_eventSource wechatCell:wechat event:event]; break;
         case RWMessageEventTapVideo:
-            [_eventSource wechatCell:wechat event:event context:context]; break;
+            [_eventSource wechatCell:wechat event:event]; break;
             
         default: break;
     }
@@ -405,29 +405,25 @@ CGRect getTopRestrain(RWWeChatCell * cell)
         case RWMessageTypeText:
             
             [_eventSource wechatCell:self
-                               event:RWMessageEventPressText
-                             context:_message.message];
+                               event:RWMessageEventPressText];
             break;
             
         case RWMessageTypeImage:
             
             [_eventSource wechatCell:self
-                               event:RWMessageEventPressImage
-                             context:_message.message];
+                               event:RWMessageEventPressImage];
             break;
             
         case RWMessageTypeVideo:
             
             [_eventSource wechatCell:self
-                               event:RWMessageEventPressVideo
-                             context:_message.message];
+                               event:RWMessageEventPressVideo];
             break;
             
         case RWMessageTypeVoice:
             
             [_eventSource wechatCell:self
-                               event:RWMessageEventPressVoice
-                             context:_message.message];
+                               event:RWMessageEventPressVoice];
             break;
             
         default: break;
@@ -437,8 +433,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
 - (void)voicePlay
 {
     [_eventSource wechatCell:self
-                       event:RWMessageEventTapVoice
-                     context:_message.message];
+                       event:RWMessageEventTapVoice];
     
     [_voiceButton.playAnimation startAnimating];
     
@@ -457,34 +452,13 @@ CGRect getTopRestrain(RWWeChatCell * cell)
 
 - (void)imageShow
 {
-    if (_message.originalResource)
-    {
         [_eventSource wechatCell:self
-                           event:RWMessageEventTapImage
-                         context:_message.originalResource];
-    }
-    else
-    {
-        [_eventSource wechatCell:self
-                           event:RWMessageEventTapImage
-                         context:_message.message];
-    }
+                           event:RWMessageEventTapImage];
 }
 
 - (void)videoPlay
 {
-    if (_message.originalResource)
-    {
-        [_eventSource wechatCell:self
-                           event:RWMessageEventTapVideo
-                         context:_message.originalResource];
-    }
-    else
-    {
-        [_eventSource wechatCell:self
-                           event:RWMessageEventTapVideo
-                         context:_message.message];
-    }
+    [_eventSource wechatCell:self event:RWMessageEventTapVideo];
 }
 
 #pragma mark - settings With Type

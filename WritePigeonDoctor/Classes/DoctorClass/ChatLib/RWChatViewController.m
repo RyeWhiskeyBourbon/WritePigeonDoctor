@@ -12,7 +12,7 @@
 
 #pragma mark - chatView - delegate
 
-- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event context:(EMMessage *)context
+- (void)wechatCell:(RWWeChatCell *)wechat event:(RWMessageEvent)event
 {
     switch (event)
     {
@@ -43,7 +43,7 @@
                 }];
             }
             
-            EMImageMessageBody *body = (EMImageMessageBody *)context.body;
+            EMImageMessageBody *body = (EMImageMessageBody *)wechat.message.message.body;
             
             [RWPhotoAlbum photoAlbumWithImage:[UIImage imageWithContentsOfFile:body.localPath]];
             
@@ -51,9 +51,11 @@
         }
         case RWMessageEventTapVoice:
         {
-            EMVoiceMessageBody *body = (EMVoiceMessageBody *)context.body;
+            EMVoiceMessageBody *body = (EMVoiceMessageBody *)wechat.message.message.body;
             
-            NSData *voiceData = [NSData dataWithContentsOfFile:body.localPath];
+            NSData *voiceData = wechat.message.originalResource?
+                                wechat.message.originalResource:
+                                [NSData dataWithContentsOfFile:body.localPath];
             
             if (_audioPlayer)
             {
@@ -142,6 +144,20 @@
 #pragma mark - bar - delegate - FitSize
 
 - (void)keyBoardWillShowWithSize:(CGSize)size
+{
+    if (self.view.center.y != _viewCenter.y) { return; }
+    
+    CGPoint pt = self.view.center;
+    
+    pt.y -= size.height;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.view.center = pt;
+    }];
+}
+
+- (void)keyboardWillChangeSize:(CGSize)size
 {
     if (self.view.center.y != _viewCenter.y) { return; }
     

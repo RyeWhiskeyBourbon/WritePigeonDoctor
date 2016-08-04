@@ -9,6 +9,7 @@
 #import "Mp3Recorder.h"
 #import "lame.h"
 #import <AVFoundation/AVFoundation.h>
+#import "RWChatManager.h"
 
 @interface Mp3Recorder()<AVAudioRecorderDelegate>
 @property (nonatomic, strong) AVAudioSession *session;
