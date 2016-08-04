@@ -495,16 +495,6 @@
         _textView.backgroundColor = [UIColor clearColor];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWasShown:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWasHidden:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:
                                             @selector(keyboardWillChangeFrame:)
                                                      name:
@@ -515,38 +505,11 @@
     return self;
 }
 
-- (void)keyboardWasShown:(NSNotification *)notification
-{
-    NSDictionary *info = [notification userInfo];
-    
-    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    
-    CGSize keyboardSize = [value CGRectValue].size;
-    
-    if (_delegate)
-    {
-        [_delegate keyBoardWillShowWithSize:keyboardSize];
-    }
-}
-
-- (void)keyboardWasHidden:(NSNotification *)notification
-{
-    if (_delegate)
-    {
-        [_delegate keyBoardWillHidden];
-    }
-}
-
 - (void)keyboardWillChangeFrame:(NSNotification *)notification
 {
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];//更改后的键盘
-    
-    CGSize keyboardSize = [aValue CGRectValue].size;
-    
     if (_delegate)
     {
-        [_delegate keyboardWillChangeSize:keyboardSize];
+        [_delegate keyboardWillChangeSize:notification];
     }
 }
 

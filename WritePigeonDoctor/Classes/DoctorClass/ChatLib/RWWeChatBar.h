@@ -32,9 +32,7 @@ typedef NS_ENUM(NSInteger,RWChatBarButton)
 - (void)openAccessoryInputViewAtChatBar:(RWWeChatBar *)chatBar;
 - (void)openMultiPurposeMenuAtChatBar:(RWWeChatBar *)chatBar;
 
-- (void)keyBoardWillShowWithSize:(CGSize)size;
-- (void)keyboardWillChangeSize:(CGSize)size;
-- (void)keyBoardWillHidden;
+- (void)keyboardWillChangeSize:(NSNotification *)notification;
 
 - (void)chatBar:(RWWeChatBar *)chatBar selectedFunction:(RWPurposeMenu)function;
 

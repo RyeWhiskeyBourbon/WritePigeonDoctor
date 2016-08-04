@@ -143,40 +143,24 @@
 
 #pragma mark - bar - delegate - FitSize
 
-- (void)keyBoardWillShowWithSize:(CGSize)size
+- (void)keyboardWillChangeSize:(NSNotification *)notification
 {
-    if (self.view.center.y != _viewCenter.y) { return; }
+    NSDictionary *userInfo = notification.userInfo;
+    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect beginFrame = [userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
+    CGFloat distance = beginFrame.origin.y - endFrame.origin.y;
     CGPoint pt = self.view.center;
+    pt.y -= distance;
     
-    pt.y -= size.height;
+    void(^animations)() = ^{ self.view.center = pt; };
     
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        self.view.center = pt;
-    }];
-}
-
-- (void)keyboardWillChangeSize:(CGSize)size
-{
-    if (self.view.center.y != _viewCenter.y) { return; }
-    
-    CGPoint pt = self.view.center;
-    
-    pt.y -= size.height;
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        self.view.center = pt;
-    }];
-}
-
-- (void)keyBoardWillHidden
-{
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        self.view.center = _viewCenter;
-    }];
+    [UIView animateWithDuration:duration
+                          delay:0.0f
+                        options:(curve << 16|UIViewAnimationOptionBeginFromCurrentState)
+                     animations:animations completion:nil];
 }
 
 - (void)openAccessoryInputViewAtChatBar:(RWWeChatBar *)chatBar
