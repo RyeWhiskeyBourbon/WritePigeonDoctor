@@ -31,7 +31,7 @@
     transition.duration = 1;
     viewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController pushViewController:viewController animated:nil];
+    [self.navigationController pushViewController:viewController animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
