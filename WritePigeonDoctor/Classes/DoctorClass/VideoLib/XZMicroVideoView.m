@@ -518,7 +518,6 @@ typedef void(^ChangeFocusSucc)(AVCaptureDevice *captureDevice);
         
         NSString *nsTmpDIr = NSTemporaryDirectory();
         NSString *videoPath = [NSString stringWithFormat:@"%@record_video_mp4_%3.f.%@",nsTmpDIr, [NSDate timeIntervalSinceReferenceDate], @"mp4"];
-        NSLog(@"%@",nsTmpDIr);
         AVURLAsset *urlAsset = [[AVURLAsset alloc] initWithURL:outputFileURL options:nil];
         __weak XZMicroVideoView *ws = self;
 
@@ -532,7 +531,6 @@ typedef void(^ChangeFocusSucc)(AVCaptureDevice *captureDevice);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [SVProgressHUD dismiss];
-                
                 [ws.delegate touchUpDone:path];
                 [self onCancelBtn:_cancelBtn];
             });

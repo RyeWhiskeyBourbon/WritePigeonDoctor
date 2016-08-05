@@ -145,9 +145,9 @@ const NSString *messageVideoBody = @"messageVideoBody";
     
     NSString *from = [[EMClient sharedClient] currentUsername];
 
-    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"iOSTest001"
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"iOSTest002"
                                                               from:from
-                                                                to:@"iOSTest001"
+                                                                to:@"iOSTest002"
                                                               body:nil
                                                                ext:extension];
     message.chatType = EMChatTypeChat;

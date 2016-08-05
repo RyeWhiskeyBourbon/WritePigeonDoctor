@@ -232,6 +232,7 @@
 
 - (void)relayoutSubViews;
 
+- (void)setCoverImage;
 
 @end
 

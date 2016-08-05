@@ -44,9 +44,9 @@
     
     RWRequsetManager *ma = [[RWRequsetManager alloc] init];
     
-    [ma userinfoWithUsername:@"iOSTest001" AndPassword:@"iOSTest001"];
+    [ma userinfoWithUsername:@"iOSTest002" AndPassword:@"iOSTest002"];
     
-    [_chatManager createConversationWithID:@"iOSTest001"];
+    [_chatManager createConversationWithID:@"iOSTest002"];
 }
 
 - (void)receiveMessage:(EMMessage *)message messageType:(EMMessageBodyType)messageType

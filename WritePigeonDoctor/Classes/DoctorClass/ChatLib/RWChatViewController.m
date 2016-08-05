@@ -7,7 +7,7 @@
 //
 
 #import "RWChatViewController.h"
-
+#import "XZMicroVideoPlayerView.h"
 @implementation RWChatViewController
 
 #pragma mark - chatView - delegate

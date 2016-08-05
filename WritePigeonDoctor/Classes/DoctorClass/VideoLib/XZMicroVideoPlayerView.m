@@ -12,6 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "XZMicroVideoView.h"
 #import "UIImage+XZMicroVideoPlayer.h"
+#import "EMVideoMessageBody.h"
 @interface XZMicroVideoPlayerView()
 
 
@@ -30,7 +31,6 @@
         [self configSubviews];
         [self relayoutSubViews];
         [self addObserver];
-
     }
     return self;
 }
@@ -73,7 +73,9 @@
 - (void)setCoverImage
 {
     UIImage * image = [UIImage xz_previewImageWithVideoURL:_videoURL];
-    _coverImage = image;
+    _playerLayer.contents = (__bridge id _Nullable)(image.CGImage);
+    NSLog(@"%@",_playerLayer.contents);
+    
 }
 - (void)initPlayer
 {
@@ -109,7 +111,7 @@
     
     CGRect screen = [UIScreen mainScreen].bounds;
     MicroVideoFullScreenPlayView *fullScreen = [[MicroVideoFullScreenPlayView alloc] initWithFrame:screen];
-    
+    [self initPlayer];
     UIView *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:fullScreen];
 }
@@ -126,14 +128,14 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    _videoURL = nil;
-    _coverImage = nil;
-    _playerBtn = nil;
-    _playItem = nil;
-    _player = nil;
-    _playerLayer = nil;
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//
+//    _videoURL = nil;
+//    _coverImage = nil;
+//    _playerBtn = nil;
+//    _playItem = nil;
+//    _player = nil;
+//    _playerLayer = nil;
 }
 
 @end
