@@ -128,14 +128,14 @@
 
 - (void)dealloc
 {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//
-//    _videoURL = nil;
-//    _coverImage = nil;
-//    _playerBtn = nil;
-//    _playItem = nil;
-//    _player = nil;
-//    _playerLayer = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    _videoURL = nil;
+    _coverImage = nil;
+    _playerBtn = nil;
+    _playItem = nil;
+    _player = nil;
+    _playerLayer = nil;
 }
 
 @end

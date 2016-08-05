@@ -470,7 +470,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
     _contentImage.hidden = YES;
     _contentLabel.hidden = NO;
     [_videoPlayer removeFromSuperview];
-    _videoPlayer = nil;
+    _videoPlayer.hidden = YES;
     
     _contentLabel.textLabel.textAlignment = NSTextAlignmentLeft;
     [self getAutoLayoutParameter];
@@ -496,7 +496,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
     _contentImage.hidden = YES;
     _voiceButton.hidden = NO;
     [_videoPlayer removeFromSuperview];
-    _videoPlayer = nil;
+    _videoPlayer.hidden = YES;
     
     EMVoiceMessageBody *body = (EMVoiceMessageBody *)_message.message.body;
     
@@ -523,7 +523,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
     _voiceButton.hidden = YES;
     _contentImage.hidden = NO;
     [_videoPlayer removeFromSuperview];
-    _videoPlayer = nil;
+    _videoPlayer.hidden = YES;
     
     [self getAutoLayoutParameter];
     [_contentImage mas_remakeConstraints:_autoLayout];
@@ -546,6 +546,7 @@ CGRect getTopRestrain(RWWeChatCell * cell)
     _contentLabel.hidden = YES;
     _voiceButton.hidden = YES;
     _contentImage.hidden = YES;
+    _videoPlayer.hidden  = NO;
     
     [self addSubview:[self getVideoPlayer]];
     
