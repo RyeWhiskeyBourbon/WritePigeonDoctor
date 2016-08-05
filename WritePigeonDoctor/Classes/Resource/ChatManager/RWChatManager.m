@@ -65,8 +65,7 @@ const NSString *messageVideoBody = @"messageVideoBody";
     {
         __block EMMessageBody *msgBody = msg.body;
         
-        if (msgBody.type != EMMessageBodyTypeText &&
-            msgBody.type != EMMessageBodyTypeVoice)
+        if (msgBody.type != EMMessageBodyTypeText)
         {
             [_chatManager asyncDownloadMessageAttachments:msg
                                                  progress:nil
@@ -118,10 +117,10 @@ const NSString *messageVideoBody = @"messageVideoBody";
     RWChatManager *defaultManager = [RWChatManager defaultManager];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy$MM$dd#HH$mm$ss$SSS$$"];
+    [formatter setDateFormat:@"yyyyMMddHHmmssSSS"];
     NSString *timeString= [formatter stringFromDate:[NSDate date]];
     
-    return [NSString stringWithFormat:@"voice@%@&%@.caf",defaultManager.faceSession.conversationId,timeString];
+    return [NSString stringWithFormat:@"voice%@%@.caf",defaultManager.faceSession.conversationId,timeString];
 }
 
 + (NSString *)imageNameSuffix:(NSString *)suffix
@@ -139,7 +138,7 @@ const NSString *messageVideoBody = @"messageVideoBody";
 
 @implementation RWChatMessageMaker
 
-+ (EMMessage *)messageWithType:(EMMessageBodyType)type body:(NSDictionary *)body extension:(NSDictionary *)extension
++ (EMMessage *)messageWithType:(EMMessageBodyType)type body:(NSDictionary *)body extension:(NSDictionary *)extension to:(NSString *)toChatId
 {
     
     
@@ -147,7 +146,11 @@ const NSString *messageVideoBody = @"messageVideoBody";
 
     EMMessage *message = [[EMMessage alloc] initWithConversationID:@"iOSTest002"
                                                               from:from
+<<<<<<< HEAD
                                                                 to:@"iOSTest002"
+=======
+                                                                to:toChatId
+>>>>>>> RyeWhiskeyBourbon/master
                                                               body:nil
                                                                ext:extension];
     message.chatType = EMChatTypeChat;

@@ -33,5 +33,6 @@
 
 @property (nonatomic,strong)NSMutableArray *messages;
 
+@property (nonatomic,strong)RWDoctorItem *item;
 
 @end

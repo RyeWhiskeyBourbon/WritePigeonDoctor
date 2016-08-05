@@ -75,6 +75,7 @@
 - (void)startConsultAtRegisterOffice:(RWRegisterOfficeView *)registerOffice
 {
     RWConsultViewController *chatView = [[RWConsultViewController alloc] init];
+    chatView.item = _doctorItem();
     
     [self pushNextWithViewcontroller:chatView];
 }

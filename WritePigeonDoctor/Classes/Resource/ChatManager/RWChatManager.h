@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <EMSDK.h>
+#import <EMSDKFull.h>
 
 extern NSString *messageTextBody;
 extern NSString *messageImageName;
@@ -56,6 +57,6 @@ extern NSString *messageVideoBody;
 
 @interface RWChatMessageMaker : NSObject
 
-+ (EMMessage *)messageWithType:(EMMessageBodyType)type body:(NSDictionary *)body extension:(NSDictionary *)extension;
++ (EMMessage *)messageWithType:(EMMessageBodyType)type body:(NSDictionary *)body extension:(NSDictionary *)extension to:(NSString *)toChatId;
 
 @end

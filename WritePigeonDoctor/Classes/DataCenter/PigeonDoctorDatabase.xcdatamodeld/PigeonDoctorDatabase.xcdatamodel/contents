@@ -16,7 +16,7 @@
         <relationship name="chatCache" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RWChatCache" inverseName="userInfomation" inverseEntity="RWChatCache" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RWUserInformation" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="RWChatCache" positionX="-54" positionY="18" width="128" height="135"/>
+        <element name="RWChatCache" positionX="-54" positionY="18" width="128" height="133"/>
+        <element name="RWUserInformation" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

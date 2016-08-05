@@ -269,7 +269,8 @@
                  [RWChatMessageMaker messageWithType:EMMessageBodyTypeImage
                                                 body:@{messageImageBody:imageData,
                                                        messageImageName:imageName}
-                                           extension:nil]
+                                           extension:nil
+                                                  to:_item.EMID]
                  
                              type:RWMessageTypeImage
                     LocalResource:imageData];
@@ -297,7 +298,8 @@
                  [RWChatMessageMaker messageWithType:EMMessageBodyTypeImage
                                                 body:@{messageImageBody:imageData,
                                                        messageImageName:imageName}
-                                           extension:nil]
+                                           extension:nil
+                                                  to:_item.EMID]
                  
                              type:RWMessageTypeImage
                     LocalResource:imageData];
@@ -332,6 +334,25 @@
     [chatBar.purposeMenu removeFromSuperview];
 }
 
+#pragma mark voice
+
+- (void)sendVoice:(NSData *)voice time:(NSInteger)second MP3Path:(NSString *)path
+{
+    NSString *name = [[path componentsSeparatedByString:@"/"] lastObject];
+    
+    [self sendMessage:
+     
+     [RWChatMessageMaker messageWithType:EMMessageBodyTypeVoice
+                                    body:@{messageVideoBody:path,
+                                           messageVideoName:name,
+                                           messageVoiceDuration:@(second)}
+                               extension:nil
+                                      to:_item.EMID]
+     
+                 type:RWMessageTypeVoice
+        LocalResource:voice];
+}
+
 #pragma mark - video
 
 - (void)makeSmallVideo
@@ -354,7 +375,8 @@
                                                         body:
                                         @{messageVideoBody:savePath,
                                           messageVideoName:[RWChatManager videoName]}
-                                                   extension:nil];
+                                                   extension:nil
+                                                          to:_item.EMID];
     
     [self sendMessage:message type:RWMessageTypeVideo
         LocalResource:savePath];
@@ -418,6 +440,14 @@
     _weChat.eventSource = self;
     
     [self.view addSubview:_weChat];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [_bar.purposeMenu removeFromSuperview];
+    [_bar.inputView removeFromSuperview];
 }
 
 - (void)setMessages:(NSMutableArray *)messages

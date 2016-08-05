@@ -46,7 +46,13 @@
     
     [ma userinfoWithUsername:@"iOSTest002" AndPassword:@"iOSTest002"];
     
+<<<<<<< HEAD
     [_chatManager createConversationWithID:@"iOSTest002"];
+=======
+    [_chatManager createConversationWithID:@"iOSTest001"];
+    
+    [_chatManager.client.callManager makeVideoCall:self.item.EMID error:nil];
+>>>>>>> RyeWhiskeyBourbon/master
 }
 
 - (void)receiveMessage:(EMMessage *)message messageType:(EMMessageBodyType)messageType

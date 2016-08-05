@@ -222,13 +222,13 @@
 #pragma mark - Path Utils
 - (NSString *)cafPath
 {
-    NSString *cafPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tmp.caf"];
+    NSString *cafPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"semifinishedproduct"];
     return cafPath;
 }
 
 - (NSString *)mp3Path
 {
-    NSString *mp3Path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"mp3.caf"];
+    NSString *mp3Path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"csdwe"];
     return mp3Path;
 }
 

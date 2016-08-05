@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger,RWChatBarButton)
 
 - (void)beginEditingTextAtChatBar:(RWWeChatBar *)chatBar;
 - (void)sendMessage:(EMMessage *)message type:(RWMessageType)type LocalResource:(id)resource;
+- (void)sendVoice:(NSData *)voice time:(NSInteger)second MP3Path:(NSString *)path;
 
 - (void)openAccessoryInputViewAtChatBar:(RWWeChatBar *)chatBar;
 - (void)openMultiPurposeMenuAtChatBar:(RWWeChatBar *)chatBar;
