@@ -25,7 +25,7 @@
     if (self)
     {
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        [self addSubview:_imageView];
+        [self.contentView addSubview:_imageView];
     }
     
     return self;
@@ -69,6 +69,7 @@
     _offices.showsVerticalScrollIndicator = NO;
     _offices.showsHorizontalScrollIndicator = NO;
     
+    _offices.alwaysBounceVertical = YES;
     [_offices registerClass:[RWOfficesCell class] forCellWithReuseIdentifier:NSStringFromClass([RWOfficesCell class])];
 }
 

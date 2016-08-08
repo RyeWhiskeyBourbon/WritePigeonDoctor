@@ -9,6 +9,9 @@
 #ifndef ThirdMacros_h
 #define ThirdMacros_h
 
+#import "UIColor+Wonderful.h"
+#import "WPD_SVProgressHUD.h"
+#import "UIView+YYAdd.h"
 //友盟统计
 
 #define MOB_CLICK @""

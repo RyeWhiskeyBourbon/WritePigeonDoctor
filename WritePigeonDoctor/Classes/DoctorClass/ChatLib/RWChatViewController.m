@@ -338,13 +338,11 @@
 
 - (void)sendVoice:(NSData *)voice time:(NSInteger)second MP3Path:(NSString *)path
 {
-    NSString *name = [[path componentsSeparatedByString:@"/"] lastObject];
-    
     [self sendMessage:
      
      [RWChatMessageMaker messageWithType:EMMessageBodyTypeVoice
-                                    body:@{messageVideoBody:path,
-                                           messageVideoName:name,
+                                    body:@{messageVoiceBody:voice,
+                                           messageVoiceName:[RWChatManager videoName],
                                            messageVoiceDuration:@(second)}
                                extension:nil
                                       to:_item.EMID]

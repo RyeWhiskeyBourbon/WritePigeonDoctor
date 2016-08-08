@@ -37,4 +37,8 @@
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 #endif
 
+#ifndef __SANDBOX_PATH__
+#define __SANDBOX_PATH__ [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) lastObject]
+#endif
+
 #endif /* PublicMacro_pch */

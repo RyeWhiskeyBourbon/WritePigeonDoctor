@@ -2,21 +2,44 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
     <entity name="RWChatCache" representedClassName="RWChatCache" syncable="YES">
         <attribute name="content" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="conversationId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myMessage" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="nextMessageid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="previousMessageid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="remotePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="success" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="userInfomation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RWUserInformation" inverseName="chatCache" inverseEntity="RWUserInformation" syncable="YES"/>
     </entity>
+    <entity name="RWConsultHistory" syncable="YES">
+        <attribute name="doctorDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="doctorid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="header" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="professionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="userInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RWUserInformation" inverseName="consultHistory" inverseEntity="RWUserInformation" syncable="YES"/>
+    </entity>
     <entity name="RWUserInformation" representedClassName="RWUserInformation" syncable="YES">
         <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="header" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="chatCache" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RWChatCache" inverseName="userInfomation" inverseEntity="RWChatCache" syncable="YES"/>
+        <relationship name="consultHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RWConsultHistory" inverseName="userInformation" inverseEntity="RWConsultHistory" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RWChatCache" positionX="-54" positionY="18" width="128" height="133"/>
-        <element name="RWUserInformation" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="RWChatCache" positionX="250" positionY="18" width="128" height="283"/>
+        <element name="RWUserInformation" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="RWConsultHistory" positionX="-297" positionY="54" width="128" height="165"/>
     </elements>
 </model>

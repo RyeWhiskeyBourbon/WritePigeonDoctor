@@ -553,12 +553,14 @@ CGRect getTopRestrain(RWWeChatCell * cell)
     if (_message.originalResource)
     {
         _videoPlayer.videoURL = [NSURL fileURLWithPath:_message.originalResource];
+        [_videoPlayer setCoverImage];
     }
     else
     {
         EMVideoMessageBody *body = (EMVideoMessageBody *)_message.message.body;
         
         _videoPlayer.videoURL = [NSURL fileURLWithPath:body.localPath];
+        [_videoPlayer setCoverImage];
     }
 }
 

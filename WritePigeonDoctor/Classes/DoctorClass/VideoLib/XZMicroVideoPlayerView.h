@@ -230,13 +230,12 @@
 @property (nonatomic, strong) UIImage * coverImage;
 @property (nonatomic, strong) AVPlayerLayer * playerLayer;
 
+@property (nonatomic,retain) UIView * timeView;
+
 - (void)relayoutSubViews;
 
 - (void)setCoverImage;
 
 @end
 
-@interface MicroVideoFullScreenPlayView : XZMicroVideoPlayerView
-
-@end
 

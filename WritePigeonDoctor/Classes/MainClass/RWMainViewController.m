@@ -7,7 +7,7 @@
 //
 
 #import "RWMainViewController.h"
-
+#import "UITabBar+badge.h"
 @interface RWMainViewController ()
 
 @end
@@ -18,6 +18,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [self.tabBarController.tabBar setBadgeStyle:kCustomBadgeStyleNumber value:99 atIndex:2];
     
 }
 

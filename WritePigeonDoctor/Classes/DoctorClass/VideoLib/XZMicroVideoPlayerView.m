@@ -13,6 +13,8 @@
 #import "XZMicroVideoView.h"
 #import "UIImage+XZMicroVideoPlayer.h"
 #import "EMVideoMessageBody.h"
+#import "RWWeiChatView.h"
+
 @interface XZMicroVideoPlayerView()
 
 
@@ -34,13 +36,6 @@
     }
     return self;
 }
-
-//- (void)setMessage:(TIMMessage *)msg
-//{
-//    _msg = msg;
-//    [self setCoverImage];
-//}
-
 - (void)addObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEndPlay:)name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -74,14 +69,12 @@
 {
     UIImage * image = [UIImage xz_previewImageWithVideoURL:_videoURL];
     _playerLayer.contents = (__bridge id _Nullable)(image.CGImage);
-    NSLog(@"%@",_playerLayer.contents);
-    
+
 }
 - (void)initPlayer
 {
     _playItem = [AVPlayerItem playerItemWithURL:_videoURL];
     _player   = [AVPlayer playerWithPlayerItem:_playItem];
-    
     [_playerLayer setPlayer:_player];
 }
 
@@ -108,57 +101,46 @@
     {
         return;
     }
-    
+    if (!_isPlaying) {
     CGRect screen = [UIScreen mainScreen].bounds;
-    MicroVideoFullScreenPlayView *fullScreen = [[MicroVideoFullScreenPlayView alloc] initWithFrame:screen];
-    [self initPlayer];
+    self.frame = screen;
+    CGFloat selfWidth = self.bounds.size.width;
+    CGFloat selfHeight = self.bounds.size.height;
+    _playerLayer.frame = CGRectMake(0, screen.size.height/3, self.bounds.size.width, self.bounds.size.height/3);
+    _playerBtn.frame = CGRectMake(selfWidth/2 - 30, selfHeight/2 - 30, 60, 60);
+    _timeView = self.superview;
     UIView *keyWindow = [UIApplication sharedApplication].keyWindow;
-    [keyWindow addSubview:fullScreen];
+    [keyWindow addSubview:self];
+    _isPlaying = !_isPlaying;
+    }else
+    {
+    [self removeFromSuperview];
+    self.frame = _selfFrame;
+    CGFloat selfWidth = self.bounds.size.width;
+    CGFloat selfHeight = self.bounds.size.height;
+    _playerLayer.frame = self.bounds;
+    _playerBtn.frame = CGRectMake(selfWidth/2 - 30, selfHeight/2 - 30, 60, 60);
+    [_timeView addSubview:self];
+    _isPlaying = !_isPlaying;
+    }
 }
-
 - (void)relayoutSubViews
 {
     CGFloat selfWidth = self.bounds.size.width;
     CGFloat selfHeight = self.bounds.size.height;
-    
     _playerLayer.frame = self.bounds;
-    
     _playerBtn.frame = CGRectMake(selfWidth/2 - 30, selfHeight/2 - 30, 60, 60);
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
     _videoURL = nil;
     _coverImage = nil;
     _playerBtn = nil;
     _playItem = nil;
     _player = nil;
     _playerLayer = nil;
-}
-
-@end
-
-/*******************全屏播放*****************/
-
-@implementation MicroVideoFullScreenPlayView
-
-- (void)onScaling:(UITapGestureRecognizer *)tap
-{
-    [self removeFromSuperview];
-}
-
-- (void)relayoutSubViews
-{
-    CGFloat selfWidth = self.bounds.size.width;
-    CGFloat selfHeight = self.bounds.size.height;
-    
-    CGRect screen = [UIScreen mainScreen].bounds;
-    
-    _playerLayer.frame = CGRectMake(0, screen.size.height/3, self.bounds.size.width, self.bounds.size.height/3);
-    
-    _playerBtn.frame = CGRectMake(selfWidth/2 - 30, selfHeight/2 - 30, 60, 60);
 }
 
 @end
