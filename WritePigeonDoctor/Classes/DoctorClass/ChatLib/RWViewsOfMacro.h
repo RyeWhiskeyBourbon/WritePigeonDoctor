@@ -106,25 +106,6 @@
 #define __BORDER_COLOR__ [UIColor grayColor]
 #endif
 
-#ifndef __SCREEN_320x480_INCH__
-#define __SCREEN_320x480_INCH__ (__MAIN_SCREEN_WIDTH__ == 320 && __MAIN_SCREEN_HEIGHT__ == 480)
-#endif
-#ifndef __SCREEN_320x568_INCH__
-#define __SCREEN_320x568_INCH__ (__MAIN_SCREEN_WIDTH__ == 320 && __MAIN_SCREEN_HEIGHT__ == 568)
-#endif
-#ifndef __SCREEN_375x667_INCH__
-#define __SCREEN_375x667_INCH__ (__MAIN_SCREEN_WIDTH__ == 375 && __MAIN_SCREEN_HEIGHT__ == 667)
-#endif
-#ifndef __SCREEN_414x763_INCH__
-#define __SCREEN_414x763_INCH__ (__MAIN_SCREEN_WIDTH__ == 414 && __MAIN_SCREEN_HEIGHT__ == 763)
-#endif
-#ifndef __SCREEN_768x1024_INCH__
-#define __SCREEN_768x1024_INCH__ (__MAIN_SCREEN_WIDTH__ == 768 && __MAIN_SCREEN_HEIGHT__ == 1024)
-#endif
-#ifndef __SCREEN_1024x1366_INCH__
-#define __SCREEN_1024x1366_INCH__ (__MAIN_SCREEN_WIDTH__ == 1024 && __MAIN_SCREEN_HEIGHT__ == 1366)
-#endif
-
 #ifndef __KEYBOARD_HEIGHT__
 #define __KEYBOARD_HEIGHT__ 216.f
 #endif

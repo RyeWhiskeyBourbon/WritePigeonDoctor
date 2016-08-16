@@ -73,6 +73,8 @@
     view.backgroundColor=[UIColor clearColor];
     
     [_backView addSubview:view];
+    if ([RWSettingsManager deviceVersion]){
+        
     
     UILabel *titleLabel = [[UILabel alloc]init];
     
@@ -100,6 +102,7 @@
         make.top.equalTo(backView.mas_top).offset(backView.frame.size.height/2);
         make.bottom.equalTo(backView.mas_bottom);
     }];
+    }
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_backView);
         make.centerY.equalTo(_backView.mas_centerY);

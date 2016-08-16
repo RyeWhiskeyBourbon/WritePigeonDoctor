@@ -87,10 +87,12 @@
 
 - (BOOL)updateConsultHistory:(RWHistory *)history
 {
+    NSPredicate *predicate =
+                    [NSPredicate predicateWithFormat:@"doctorid = %@",history.doctorid];
     NSString *name = NSStringFromClass([RWConsultHistory class]);
     
     NSArray *fetchedObjects = [self searchItemWithEntityName:name
-                                                   predicate:nil
+                                                   predicate:predicate
                                              sortDescriptors:nil];
     
     if (fetchedObjects.count)

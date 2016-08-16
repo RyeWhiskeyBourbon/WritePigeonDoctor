@@ -34,7 +34,7 @@
 #endif
 
 #ifndef __MAIN_INDEX__
-#define __MAIN_INDEX__ @"http://www.zhongyuedu.com/tgm/test/test18"
+#define __MAIN_INDEX__ @"http://baige.zhongyuedu.com/list.php?fid=41"
 #endif
 
 #define __MAIN_INDEX_URL__ [NSURL URLWithString:__MAIN_INDEX__]
@@ -57,22 +57,19 @@
 #endif
 
 #ifdef DEBUG
-#if DEBUG
-
-#ifndef MESSAGE
-#define MESSAGE(...) NSLog(@"\n**********************************\n\n** Class: %@\n\n** Function: %s\n\n** Line: No.%d\n\n** Message: %@\n\n**********************************",NSStringFromClass([self class]),__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
-#endif
-
+#   if DEBUG
+#       ifndef MESSAGE
+#           define MESSAGE(...) NSLog(@"\n**********************************\n\n** Class:   %@\n\n** Function: %s\n\n** Line: No.%d\n\n** Message: %@\n\n**********************************",NSStringFromClass([self class]),__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+#       endif
+#   else
+#       ifndef MESSAGE
+#           define MESSAGE(...)
+#       endif
+#   endif
 #else
-#ifndef MESSAGE
-#define MESSAGE(...)
-#endif
-#endif
-#else
-
-#ifndef MESSAGE
-#define MESSAGE(...)
-#endif
+#   ifndef MESSAGE
+#       define MESSAGE(...)
+#   endif
 #endif
 
 #endif /* PublicMacro_pch */

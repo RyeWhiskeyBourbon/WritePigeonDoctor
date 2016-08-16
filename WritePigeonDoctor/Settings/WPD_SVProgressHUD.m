@@ -12,20 +12,22 @@
 
 + (void)showLoadingView
 {
-    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-    
-    [SVProgressHUD setMinimumDismissTimeInterval:15];
-    
-    [SVProgressHUD setFont:[UIFont systemFontOfSize:14]];
-    
-    [SVProgressHUD showImage:[UIImage imageNamed:@"status"] status:@"正在加载..."];
+    if ([RWSettingsManager deviceVersion])
+    {
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+        [SVProgressHUD setMinimumDismissTimeInterval:15];
+        [SVProgressHUD setFont:[UIFont systemFontOfSize:14]];
+        [SVProgressHUD showImage:[UIImage imageNamed:@"status"] status:@"正在加载..."];
+    }
 }
 
 + (void)dissmiss
 {
-    [SVProgressHUD dismiss];
+    if ([RWSettingsManager deviceVersion])
+    {
+        [SVProgressHUD dismiss];
+    }
 }
 
 

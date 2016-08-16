@@ -391,16 +391,25 @@ static NSString *const buttonCell = @"buttonCell";
         [self presentViewController:PickerImage animated:YES completion:nil];
     }]];
     
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
-       
-        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         
-        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
-        PickerImage.allowsEditing = YES;
-        PickerImage.delegate = self;
-        [self presentViewController:PickerImage animated:YES completion:nil];
-    }]];
+        AVAuthorizationStatus authStatus=[AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
+                if (authStatus==AVAuthorizationStatusDenied||authStatus==AVAuthorizationStatusRestricted) {
+                    
+                    [RWSettingsManager promptToViewController:self Title:@"应用相机权限受限,请在设置中启用" response:nil];
+                }
+                else
+                {
+                UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+                
+                PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
+                PickerImage.allowsEditing = YES;
+                PickerImage.delegate = self;
+                [self presentViewController:PickerImage animated:YES completion:nil];\
+                }
+            }]];
+    }
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
@@ -461,7 +470,9 @@ static NSString *const buttonCell = @"buttonCell";
     __weak typeof (self) weakself =self;
     __block RWUser *weakUser = _user;
     
-    [_requestManager setUserHeader:[UIImage imageWithData:_user.header] name:nameStr age:ageStr sex:sexStr completion:^(BOOL success, NSString *errorReason)
+    UIImage *header = _user.header?[UIImage imageWithData:_user.header]:[UIImage imageNamed:@"user_image"];
+    
+    [_requestManager setUserHeader:header name:nameStr age:ageStr sex:sexStr completion:^(BOOL success, NSString *errorReason)
     {
         if (success)
         {

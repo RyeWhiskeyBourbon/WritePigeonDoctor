@@ -156,7 +156,13 @@
         {
             _gender = 1;
         }
-        _userPortrait.image = [UIImage imageWithData:user.header];
+        if (user.header) {
+            _userPortrait.image = [UIImage imageWithData:user.header];
+        }else
+        {
+            _userPortrait.backgroundColor = [UIColor whiteColor];
+            _userPortrait.image = [UIImage imageNamed:@"user_image"];
+        }
         [self updateGender];
     }
 }
@@ -201,34 +207,40 @@
          [[[UIAlertView alloc]initWithTitle:UMComLocalizedString(@"um_com_sorry", @"抱歉")  message:UMComLocalizedString(@"um_com_userNicknameTooLong", @"请输入正确的年龄") delegate:nil cancelButtonTitle:UMComLocalizedString(@"um_com_ok", @"好的") otherButtonTitles:nil, nil] show];
          return;
        }
-    }else
-    {
-      self.ageField.text = @"0";
-    }
-//    __weak typeof(self) ws = self;
-//    [_dataController updateProfileWithName:_nameField.text age:[NSNumber numberWithInteger:[self.ageField.text intValue]] gender:[NSNumber numberWithInteger:_gender] custom:nil userNameType:userNameDefault userNameLength:userNameLengthDefault completion:^(id responseObject, NSError *error) {
-//        if (error) {
-//            [UMComShowToast showFetchResultTipWithError:error];
-//        } else {
-//            [UMComShowToast accountModifyProfileSuccess];
-//            if (ws.updateCompletion) {
-//                ws.updateCompletion(responseObject, error);
-//            }
-//        }
-//    }];
+     }
      _requestManager = [[RWRequsetManager alloc]init];
+    WEAKSELF
     [_requestManager setUserHeader: _userPortrait.image name:_nameField.text age:self.ageField.text sex:[NSString stringWithFormat:@"%lu",(unsigned long)_gender] completion:^(BOOL success, NSString *errorReason)
      {
         if (success) {
             
-            [SVProgressHUD setMinimumDismissTimeInterval:1];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+            if ([RWSettingsManager deviceVersion])
+            {
+                [SVProgressHUD setMinimumDismissTimeInterval:1];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+            }
+            else
+            {
+                [RWSettingsManager promptToViewController:weakSelf
+                                                    Title:@"保存成功"
+                                                 response:nil];
+            }
         }
-         else{
-             [SVProgressHUD setMinimumDismissTimeInterval:1];
-             [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-             [SVProgressHUD showErrorWithStatus:errorReason];
+         else
+         {
+             if ([RWSettingsManager deviceVersion])
+             {
+                 [SVProgressHUD setMinimumDismissTimeInterval:1];
+                 [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                 [SVProgressHUD showErrorWithStatus:errorReason];
+             }
+             else
+             {
+                 [RWSettingsManager promptToViewController:weakSelf
+                                                     Title:@"保存失败"
+                                                  response:nil];
+             }
          }
      }];
 
@@ -347,18 +359,43 @@
     
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
+        if ([RWSettingsManager deviceVersion])
+        {
+            [SVProgressHUD setMinimumDismissTimeInterval:15];
+            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+            [SVProgressHUD showWithStatus:@"正在退出。。。"];
+        }
         [RWRequsetManager userLogout:^(BOOL success) {
            
             if (success)
             {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kUserLogoutSucceedNotification object:nil];
-                if (self.navigationController.viewControllers.count > 1)
+                RWDataBaseManager *dataBase = [RWDataBaseManager defaultManager];
+                
+                RWUser *user = [dataBase getDefualtUser];
+                user.defaultUser = NO;
+                
+                if ([dataBase updateUesr:user] && SETTINGS(__AUTO_LOGIN__, @(NO)))
                 {
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
-                else
-                {
-                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLogoutSucceedNotification object:nil];
+                    
+                    if (self.navigationController.viewControllers.count > 1)
+                    {
+                        if ([RWSettingsManager deviceVersion])
+                        {
+                            [SVProgressHUD dismiss];
+                        }
+                        
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                    else
+                    {
+                        if ([RWSettingsManager deviceVersion])
+                        {
+                            [SVProgressHUD dismiss];
+                        }
+                        
+                        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                    }
                 }
             }
         }];

@@ -98,9 +98,9 @@
 
     self.customButtonView = [UMComButton buttonWithType:UIButtonTypeCustom];
     [self.customButtonView setFrame:CGRectMake(0, 0, 65, 35)];
-    [self.customButtonView setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.customButtonView setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [self.customButtonView setTitle:title forState:UIControlStateNormal];
-    [self.customButtonView setTitleColor:[UMComTools colorWithHexString:FontColorBlue] forState:UIControlStateNormal];
+    [self.customButtonView setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
     [self.customButtonView addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     

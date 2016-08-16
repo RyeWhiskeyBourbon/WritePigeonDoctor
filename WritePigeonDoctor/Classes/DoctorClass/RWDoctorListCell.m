@@ -136,7 +136,7 @@
 {
     _history = history;
     
-    _header.image = [UIImage imageWithData:_history.header];
+    _header.image = _history.header?[UIImage imageWithData:_history.header]:[UIImage imageNamed:@"user_image"];
     _name.text = _history.name;
     _professionalTitle.text = _history.professionTitle;
     _office.text = _history.office;

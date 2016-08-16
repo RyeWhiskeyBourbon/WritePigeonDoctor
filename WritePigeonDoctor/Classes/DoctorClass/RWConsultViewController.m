@@ -47,30 +47,12 @@
                                  extension:@{conversationTo:self.item.EMID,
                                              UMID:self.item.umid}];
     
-    self.weChat.messages = [[self.baseManager getMessageWith:self.item.EMID] mutableCopy];
+    self.weChat.messages =
+                    [[self.baseManager getMessageWith:self.item.EMID] mutableCopy];
     
     if (!self.weChat.messages.count)
     {
-        EMMessage *message = [[EMMessage alloc] initWithConversationID:nil
-                                                                  from:nil
-                                                                    to:nil
-                                                                  body:nil
-                                                                   ext:nil];
-        message.chatType = EMChatTypeChat;
-        
-        message.body = [[EMTextMessageBody alloc]
-                            initWithText:@"欢迎使用白鸽医生，白鸽医生您的私人医护助理!------中域教育集团是一家集医师资格考试、考研高端、公务员考试为一体的教学研究的专业化、规模化的考前辅导机构。自成立以来，业务领域扩展了二十省，培训学员15万名，保过班通过率达到了惊人的96%，已迅速发展成为考试培训界的权威品牌，遥遥领先于各大培训机构。"];
-        
-        RWWeChatMessage *newMsg = [RWWeChatMessage message:message
-                                                    header:
-                                                    [UIImage imageNamed:@"45195.jpg"]
-                                                      type:RWMessageTypeText
-                                                 myMessage:NO
-                                               messageDate:[NSDate date]
-                                                  showTime:NO
-                                          originalResource:nil];
-        
-        self.weChat.messages = [@[newMsg] mutableCopy];
+        self.weChat.messages = [self getAttendantMessages];
     }
     
     for (int i = 0; i < self.weChat.messages.count; i++)
@@ -86,6 +68,68 @@
         
         [self.baseManager updateCacheMessage:msg];
     }
+}
+
+- (NSMutableArray *)getAttendantMessages
+{
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:nil
+                                                              from:nil
+                                                                to:nil
+                                                              body:nil
+                                                               ext:nil];
+    message.chatType = EMChatTypeChat;
+    
+    message.body = [[EMTextMessageBody alloc]
+                    initWithText:@"欢迎使用白鸽医护，白鸽医生您的私人医护助理!"];
+    
+    RWWeChatMessage *newMsg = [RWWeChatMessage message:message
+                                                header:
+                               [UIImage imageNamed:@"45195.jpg"]
+                                                  type:RWMessageTypeText
+                                             myMessage:NO
+                                           messageDate:[NSDate date]
+                                              showTime:NO
+                                      originalResource:nil];
+    
+    EMMessage *warningMessage = [[EMMessage alloc] initWithConversationID:nil
+                                                                     from:nil
+                                                                       to:nil
+                                                                     body:nil
+                                                                      ext:nil];
+    warningMessage.chatType = EMChatTypeChat;
+    
+    warningMessage.body = [[EMTextMessageBody alloc]
+                           initWithText:@"白鸽医护管理员提醒您：为了您的个人财产权益，如果涉及支付，请谨慎处理，如果发生非本平台收费项目的经济纠纷，本平台概不负责。"];
+    
+    RWWeChatMessage *warningMsg = [RWWeChatMessage message:warningMessage
+                                                    header:
+                                   [UIImage imageNamed:@"45195.jpg"]
+                                                      type:RWMessageTypeText
+                                                 myMessage:NO
+                                               messageDate:[NSDate date]
+                                                  showTime:NO
+                                          originalResource:nil];
+    
+    EMMessage *reminderMessage = [[EMMessage alloc] initWithConversationID:nil
+                                                                     from:nil
+                                                                       to:nil
+                                                                     body:nil
+                                                                      ext:nil];
+    reminderMessage.chatType = EMChatTypeChat;
+    
+    reminderMessage.body = [[EMTextMessageBody alloc]
+                           initWithText:@"温馨提示：白鸽社区，名医权威分析，为您提供更多的健康资讯和养生方法。"];
+    
+    RWWeChatMessage *reminderMsg = [RWWeChatMessage message:reminderMessage
+                                                    header:
+                                   [UIImage imageNamed:@"45195.jpg"]
+                                                      type:RWMessageTypeText
+                                                 myMessage:NO
+                                               messageDate:[NSDate date]
+                                                  showTime:NO
+                                          originalResource:nil];
+    
+    return [@[newMsg,warningMsg,reminderMsg] mutableCopy];
 }
 
 - (void)viewWillAppear:(BOOL)animated

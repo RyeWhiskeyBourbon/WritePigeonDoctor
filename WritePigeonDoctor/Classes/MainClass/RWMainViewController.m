@@ -113,9 +113,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
-    NSURL *url = [NSURL URLWithString:@"http://www.zhongyuedu.com/tgm/test/test18"];
-    
-    NSURLRequest *requset = [NSURLRequest requestWithURL:url];
+    NSURLRequest *requset = [NSURLRequest requestWithURL:__MAIN_INDEX_URL__];
     
     [_informationView loadRequest:requset];
 }

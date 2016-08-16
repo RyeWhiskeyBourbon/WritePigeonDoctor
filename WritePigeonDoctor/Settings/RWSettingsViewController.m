@@ -63,11 +63,14 @@ static NSString *const  setListCell = @"viewListCell";
     
     RWUser *user = [[RWDataBaseManager defaultManager] getDefualtUser];
     
-    [_loginBtn setImage:[UIImage imageWithData:user.header]
-               forState:UIControlStateNormal];
-    
+    if (user.header) {
+        [_loginBtn setImage:[UIImage imageWithData:user.header]
+                   forState:UIControlStateNormal];
+    }else
+    {
+        [_loginBtn setImage:[UIImage imageNamed:@"user_image"] forState:UIControlStateNormal];
+    }
     _nameLab.text = user.name?user.name:user.username;
-    
     self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNoticeItemViews:) name:kUMComUnreadNotificationRefreshNotification object:nil];
     
@@ -108,11 +111,11 @@ static NSString *const  setListCell = @"viewListCell";
 
     _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _loginBtn.frame = CGRectMake(SCREEN_WIDTH/2-40, 80, 80, 80);
+    _loginBtn.backgroundColor = [UIColor whiteColor];
     _loginBtn.layer.masksToBounds = YES;
     _loginBtn.layer.cornerRadius = 40;
     
     _loginBtn.contentHorizontalAlignment =UIControlContentHorizontalAlignmentCenter;
-    [ _loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
     
     _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, _loginBtn.bottom+10, SCREEN_WIDTH, 30)];
     _nameLab.textAlignment = NSTextAlignmentCenter;
@@ -361,13 +364,6 @@ static NSString *const  setListCell = @"viewListCell";
             [self.tableView setContentOffset:CGPointMake(0, -100)];
         }
     }
-}
-
-#pragma --- Action
-
-- (void)loginBtnAction
-{
-    NSLog(@"登录");
 }
 
 - (void)refreshNoticeItemViews:(NSNotification*)notification

@@ -212,6 +212,7 @@
 		12A26A2E1D523BDC0046E163 /* PigeonDoctorDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 12A26A2C1D523BDC0046E163 /* PigeonDoctorDatabase.xcdatamodeld */; };
 		12A6AADD1D49FFDB00A0739C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12A6AADC1D49FFDB00A0739C /* Launch Screen.storyboard */; };
 		12A6AAE01D4A071D00A0739C /* RWWPDBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A6AADF1D4A071D00A0739C /* RWWPDBaseController.m */; };
+		12B671B31D62C72D00A139DB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B671B21D62C72D00A139DB /* CoreFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		12BFA2511D5733E1007C86DF /* RWUserInformation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BFA2461D5733E1007C86DF /* RWUserInformation+CoreDataProperties.m */; };
 		12BFA2521D5733E1007C86DF /* RWUserInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BFA2481D5733E1007C86DF /* RWUserInformation.m */; };
 		12BFA2531D5733E1007C86DF /* RWConsultHistory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BFA24A1D5733E1007C86DF /* RWConsultHistory+CoreDataProperties.m */; };
@@ -703,6 +704,7 @@
 		12A6AADC1D49FFDB00A0739C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		12A6AADE1D4A071D00A0739C /* RWWPDBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWWPDBaseController.h; sourceTree = "<group>"; };
 		12A6AADF1D4A071D00A0739C /* RWWPDBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWWPDBaseController.m; sourceTree = "<group>"; };
+		12B671B21D62C72D00A139DB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		12BFA2451D5733E1007C86DF /* RWUserInformation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RWUserInformation+CoreDataProperties.h"; sourceTree = "<group>"; };
 		12BFA2461D5733E1007C86DF /* RWUserInformation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RWUserInformation+CoreDataProperties.m"; sourceTree = "<group>"; };
 		12BFA2471D5733E1007C86DF /* RWUserInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWUserInformation.h; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12B671B31D62C72D00A139DB /* CoreFoundation.framework in Frameworks */,
 				123E9BBE1D34A00F009B61B5 /* libz.tbd in Frameworks */,
 				12587BA51D60A2F000EC33D5 /* libstdc++.tbd in Frameworks */,
 				123E9BB81D349FC7009B61B5 /* CoreTelephony.framework in Frameworks */,
@@ -2170,6 +2173,7 @@
 		442497FD92A093AD82020936 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				12B671B21D62C72D00A139DB /* CoreFoundation.framework */,
 				12587BA41D60A2F000EC33D5 /* libstdc++.tbd */,
 				12587BA21D60A2D400EC33D5 /* CoreGraphics.framework */,
 				12587BA01D60A2BE00EC33D5 /* libiconv.tbd */,
@@ -2753,6 +2757,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WritePigeonDoctor/Classes/PublicClass/PublicMacro.pch";
 				INFOPLIST_FILE = WritePigeonDoctor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2768,6 +2773,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = RyeWhiskey.WritePigeonDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wno-deprecated-declarations",
 					"-Wno-nullability-completeness",
@@ -2792,6 +2798,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WritePigeonDoctor/Classes/PublicClass/PublicMacro.pch";
 				INFOPLIST_FILE = WritePigeonDoctor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2807,6 +2814,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = RyeWhiskey.WritePigeonDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wno-deprecated-declarations",
 					"-Wno-nullability-completeness",

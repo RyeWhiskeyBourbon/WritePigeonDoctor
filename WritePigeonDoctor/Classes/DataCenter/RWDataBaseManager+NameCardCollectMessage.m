@@ -88,7 +88,7 @@
 - (BOOL)existCardID:(NSString *)cardID
 {
     NSPredicate *predicate =
-    [NSPredicate predicateWithFormat:@"doctorid = %@",cardID];
+                            [NSPredicate predicateWithFormat:@"doctorid = %@",cardID];
     NSString *name = NSStringFromClass([RWNameCard class]);
     
     NSArray *result = [self searchItemWithEntityName:name
@@ -105,10 +105,12 @@
 
 - (BOOL)updateNameCard:(RWCard *)card
 {
+    NSPredicate *predicate =
+                        [NSPredicate predicateWithFormat:@"doctorid = %@",card.doctorid];
     NSString *name = NSStringFromClass([RWNameCard class]);
     
     NSArray *fetchedObjects = [self searchItemWithEntityName:name
-                                                   predicate:nil
+                                                   predicate:predicate
                                              sortDescriptors:nil];
     
     if (fetchedObjects.count)

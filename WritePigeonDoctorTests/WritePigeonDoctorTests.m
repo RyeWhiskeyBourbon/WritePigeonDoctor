@@ -109,17 +109,17 @@
     AFHTTPSessionManager *requestManager = [AFHTTPSessionManager manager];
     requestManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSString *username = @"18562599335";
+    NSString *username = @"18562599324";
     NSString *password = @"qwertyu";
 //    NSString *yzm = @"";
-    NSString *nickname = @"RyeWhiskey";
+    NSString *nickname = @"李医生";
     NSString *hos = @"新潮未来科技医院";
-    NSString *groupid = @"27";
+    NSString *groupid = @"24";
     NSString *notice = @"暂无";
     NSString *title = @"主任医师";
     
     [XZUMComPullRequest userCustomAccountLoginWithName:username
-                                              sourceId:password
+                                              sourceId:username
                                               icon_url:nil
                                                 gender:0
                                                    age:0
