@@ -2265,6 +2265,14 @@
 					126271961D336F7F009D44A0 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 7XNMZG3S4E;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					126271AF1D336F7F009D44A0 = {
 						CreatedOnToolsVersion = 7.3;
