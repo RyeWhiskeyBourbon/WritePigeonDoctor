@@ -188,7 +188,7 @@
         [_attention setTitle:@"关注" forState:UIControlStateNormal];
     }
     
-    _header.image = [UIImage imageWithData:_card.header];
+    _header.image = _card.header?[UIImage imageWithData:_card.header]:[UIImage imageNamed:@"user_image"];
     _name.text = _card.name;
     _professionalTitle.text = _card.professionTitle;
     _office.text = _card.office;
@@ -543,12 +543,18 @@
 
 - (void)changeConsultWay
 {
-    [_delegate consultWayAtRegisterOffice:self];
+    if (found_response(_delegate,@"consultWayAtRegisterOffice:"))
+    {
+        [_delegate consultWayAtRegisterOffice:self];
+    }
 }
 
 - (void)startConsult
 {
-    [_delegate startConsultAtRegisterOffice:self];
+    if (found_response(_delegate,@"startConsultAtRegisterOffice:"))
+    {
+        [_delegate startConsultAtRegisterOffice:self];
+    }
 }
 
 - (void)didMoveToSuperview

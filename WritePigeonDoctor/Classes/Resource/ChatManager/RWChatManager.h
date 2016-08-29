@@ -17,6 +17,12 @@
 #define __NET_STATUS__ [RWChatManager defaultManager].reachabilityStatus
 #endif
 
+BOOL _found_response(id delegate,NSString *selector);
+
+#ifndef found_response
+#define found_response _found_response
+#endif
+
 extern NSString *messageTextBody;
 extern NSString *messageImageName;
 extern NSString *messageImageBody;
@@ -33,6 +39,7 @@ extern NSString *conversationTo;
 extern NSString *UMID;
 
 extern NSString *QueueName;
+extern NSString *HeaderOperation;
 
 typedef NS_ENUM(NSInteger,RWLinkState)
 {
@@ -53,6 +60,8 @@ extern NSString *RWLoginFinishNotification;
 extern NSString *RWAutoLoginNotification;
 extern NSString *RWNetworkReachabilityNotification;
 extern NSString *RWConnectionStateNotification;
+extern NSString *RWHeaderMessageToObserve;
+extern NSString *RWHeaderDownLoadFinishNotification;
 
 @protocol RWChatManagerDelegate <NSObject>
 
@@ -96,7 +105,7 @@ void _send_notification(const NSString *name,id message);
 void _notification(const NSString *name,void(^block)(NSNotification * _Nonnull note));
 
 #define send_notification _send_notification
-#define notification _notification
+#define notification_observe _notification
 
 + (void)sendNotificationWithName:(const NSString *)name message:(id)message;
 + (void)observeNotification:(const NSString *)name usingblock:(void(^)(NSNotification * _Nonnull note))block;

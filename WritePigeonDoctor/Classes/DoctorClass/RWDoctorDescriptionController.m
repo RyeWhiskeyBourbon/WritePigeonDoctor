@@ -12,6 +12,7 @@
 #import "RWDataModels.h"
 #import "RWDataBaseManager+ChatCache.h"
 #import "XZUMComPullRequest.h"
+#import "RWOrderController.h"
 
 @interface RWDoctorDescriptionController ()
 
@@ -99,25 +100,39 @@
         return;
     }
     
-    RWConsultViewController *chatView = [[RWConsultViewController alloc] init];
+    RWServiceDetail *serviceDetial = [[RWServiceDetail alloc] init];
     
-    chatView.item = _doctorItem;
+    serviceDetial.serviceSite = @(RWServiceSiteInApp);
+    serviceDetial.serviceType = @(RWServiceTypeConsult);
     
-    [[RWDataBaseManager defaultManager] addConsultHistoryWithItem:chatView.item
-                                                       completion:^(BOOL success)
-     {
-         [self pushNextWithViewcontroller:chatView];
-         
-         if (!success)
-         {
-             MESSAGE(@"缓存失败");
-         }
-     }];
-}
-
-- (void)consultWayAtRegisterOffice:(RWRegisterOfficeView *)registerOffice
-{
-    MESSAGE(@"资讯方式选择");
+    RWUser *user = [[RWDataBaseManager defaultManager] getDefualtUser];
+    
+    serviceDetial.name = user.name;
+    serviceDetial.office = _doctorItem.office;
+    serviceDetial.doctor = _doctorItem.name;
+    
+    RWOrderController *orderController = [[RWOrderController alloc]init];
+    
+    orderController.order = [RWOrder consultOrderWithUserName:user.username
+                                                    serviceid:_doctorItem.EMID
+                                           servicedescription:serviceDetial];
+    
+    [self.navigationController pushViewController:orderController animated:YES];
+    
+//    RWConsultViewController *chatView = [[RWConsultViewController alloc] init];
+//    
+//    chatView.item = _doctorItem;
+//    
+//    [[RWDataBaseManager defaultManager] addConsultHistoryWithItem:chatView.item
+//                                                       completion:^(BOOL success)
+//     {
+//         [self pushNextWithViewcontroller:chatView];
+//         
+//         if (!success)
+//         {
+//             MESSAGE(@"缓存失败");
+//         }
+//     }];
 }
 
 #pragma mark - event

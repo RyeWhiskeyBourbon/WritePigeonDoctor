@@ -12,6 +12,7 @@
 #import <AFNetworking.h>
 
 NSString *QueueName = @"DownLoadQueue";
+NSString *HeaderOperation = @"HeaderOperation";
 
 const NSString *messageTextBody = @"messageTextBody";
 const NSString *messageImageName = @"messageImageName";
@@ -33,10 +34,23 @@ const NSString *RWLoginFinishNotification = @"RWLoginFinishNotification";
 const NSString *RWAutoLoginNotification = @"RWAutoLoginNotification";
 const NSString *RWNetworkReachabilityNotification = @"RWNetworkReachabilityNotification";
 const NSString *RWConnectionStateNotification = @"RWConnectionStateNotification";
+const NSString *RWHeaderMessageToObserve = @"RWHeaderMessageToObserve;";
 const NSString *RWLoginFromOtherDeviceNotification =
                                                 @"RWLoginFromOtherDeviceNotification";
+const NSString *RWHeaderDownLoadFinishNotification =
+                                                @"RWHeaderDownLoadFinishNotification";
 
 @implementation RWChatManager
+
+BOOL _found_response(id delegate,NSString *selector)
+{
+    if (delegate && [delegate respondsToSelector:NSSelectorFromString(selector)])
+    {
+        return YES;
+    }
+    
+    return NO;
+}
 
 void _send_notification(const NSString *name,id message)
 {
@@ -109,8 +123,24 @@ void _notification(const NSString *name,void(^block)(NSNotification * _Nonnull n
     
     _downLoadQueue = [[NSOperationQueue alloc] init];
     _downLoadQueue.name = QueueName;
-    _downLoadQueue.maxConcurrentOperationCount = 5;
+    _downLoadQueue.maxConcurrentOperationCount = 15;
+    
+    notification_observe(RWHeaderMessageToObserve,^(NSNotification * _Nonnull note) {
+        
+        NSArray *operations = _downLoadQueue.operations;
+        
+        for (NSOperation *operation in operations)
+        {
+            if ([operation.name isEqualToString:HeaderOperation])
+            {
+                return ;
+            }
+        }
+        
+        send_notification(RWHeaderDownLoadFinishNotification,nil);
+    });
 }
+
 
 - (void)userLoginSuccess:(BOOL)success responseMessage:(NSString *)responseMessage
 {

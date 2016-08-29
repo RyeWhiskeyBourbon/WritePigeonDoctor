@@ -37,20 +37,32 @@
 
 - (void)requestInformation
 {
-    [XZUMComPullRequest fecthUserMessageWithUid:_umid source:nil source_uid:_EMID completion:^(NSDictionary *responseObject, NSError *error) {
+    NSOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         
-        UMComUser *umuser = responseObject[UMComModelDataKey];
-        
-        if (umuser.icon_url)
+        [XZUMComPullRequest fecthUserMessageWithUid:_umid source:nil source_uid:_EMID completion:^(NSDictionary *responseObject, NSError *error)
         {
-            UMComImageUrl * imageUrl = umuser.icon_url;
-            NSString * small = imageUrl.small_url_string;
-            
-            _header = small;
-            
-            _relation = umuser.has_followed.integerValue;
-        }
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+               
+                UMComUser *umuser = responseObject[UMComModelDataKey];
+                
+                if (umuser.icon_url)
+                {
+                    UMComImageUrl * imageUrl = umuser.icon_url;
+                    NSString * small = imageUrl.small_url_string;
+                    
+                    _header = small;
+                    
+                    _relation = umuser.has_followed.integerValue;
+                }
+                
+                send_notification(RWHeaderMessageToObserve,nil);
+            }];
+        }];
     }];
+    
+    operation.name = HeaderOperation;
+    
+    [[RWChatManager defaultManager].downLoadQueue addOperation:operation];
 }
 
 @end

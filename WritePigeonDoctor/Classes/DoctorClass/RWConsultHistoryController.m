@@ -13,6 +13,7 @@
 #import "RWMainTabBarController.h"
 #import "RWConsultNotesController.h"
 #import "RWMainTabBarController.h"
+#import "RWOrderListController.h"
 
 @interface RWConsultHistoryController ()
 
@@ -23,6 +24,7 @@
 
 @property (nonatomic,strong)UITableView *historyList;
 @property (nonatomic,strong)NSArray *historys;
+@property (nonatomic,strong)UISegmentedControl *segment;
 
 @property (nonatomic,strong)RWDataBaseManager *baseManager;
 
@@ -33,7 +35,7 @@
 - (void)initViews
 {
     _historyList = [[UITableView alloc] initWithFrame:self.view.bounds
-                                               style:UITableViewStylePlain];
+                                                style:UITableViewStylePlain];
     [self.view addSubview:_historyList];
     
     _historyList.showsVerticalScrollIndicator = NO;
@@ -43,7 +45,42 @@
     _historyList.dataSource = self;
     
     [_historyList registerClass:[RWDoctorListCell class]
-        forCellReuseIdentifier:NSStringFromClass([RWDoctorListCell class])];
+         forCellReuseIdentifier:NSStringFromClass([RWDoctorListCell class])];
+    
+    _segment = [[UISegmentedControl alloc] initWithItems:@[@"咨询历史",@"订单列表"]];
+    
+    _segment.tintColor = [UIColor whiteColor];
+    _segment.selectedSegmentIndex = 0;
+    
+    [_segment addTarget:self
+                action:@selector(segmentSelected:)
+      forControlEvents:UIControlEventValueChanged];
+    
+    [self.navigationController.navigationBar addSubview:_segment];
+    
+    CGRect frame = self.navigationController.navigationBar.bounds;
+    CGPoint center = CGPointMake(frame.size.width / 2 , frame.size.height / 2);
+    
+    frame.size.width -= 180;
+    frame.size.height -= 15;
+    
+    _segment.frame = frame;
+    _segment.center = center;
+}
+
+- (void)segmentSelected:(UISegmentedControl *)segment
+{
+    if (segment.selectedSegmentIndex)
+    {
+        RWOrderListController *orderList = [[RWOrderListController alloc] init];
+        orderList.segmentControl = _segment;
+        
+        [self.navigationController pushViewController:orderList animated:YES];
+    }
+    else
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -75,6 +112,7 @@
     
     [tabBar updateUnreadNumber];
     
+    [_segment removeFromSuperview];
     [self pushNextWithViewcontroller:notesController];
 }
 
@@ -104,15 +142,20 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"咨询历史";
     _baseManager = [RWDataBaseManager defaultManager];
     
+    [self initNavigationBar];
     [self initViews];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    if (!_segment.superview)
+    {
+        [self.navigationController.navigationBar addSubview:_segment];
+    }
     
     if ([RWChatManager defaultManager].connectionState)
     {
@@ -130,9 +173,21 @@
     [_historyList reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)initNavigationBar
+{
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem *faceConsult = [[UIBarButtonItem alloc] initWithTitle:@"当前咨询"
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:
+                                                            @selector(toFaceConsult)];
+    faceConsult.width = 40;
+    self.navigationItem.rightBarButtonItem = faceConsult;
+}
+
+- (void)toFaceConsult
+{
+    [MBProgressHUD Message:@"未找到正在咨询的订单" For:self.view];
 }
 
 @end

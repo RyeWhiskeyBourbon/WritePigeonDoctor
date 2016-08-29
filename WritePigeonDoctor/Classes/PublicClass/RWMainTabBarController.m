@@ -46,7 +46,7 @@
 
 - (void)addMessageObserver
 {
-    notification(RWNewMessageNotification,^(NSNotification * _Nonnull note) {
+    notification_observe(RWNewMessageNotification,^(NSNotification * _Nonnull note) {
         
         [self updateUnreadNumber];
     });
@@ -84,12 +84,12 @@
 - (void)initResource
 {
     _images = @[[UIImage imageNamed:@"资讯"],
-                [UIImage imageNamed:@"资讯历史"],
+                [UIImage imageNamed:@"记录"],
                 [UIImage imageNamed:@"社区"],
                 [UIImage imageNamed:@"我"]];
     
     _selectImages = @[[UIImage imageNamed:@"资讯z"],
-                      [UIImage imageNamed:@"资讯历史z"],
+                      [UIImage imageNamed:@"记录z"],
                       [UIImage imageNamed:@"社区z"],
                       [UIImage imageNamed:@"我z"]];
 }

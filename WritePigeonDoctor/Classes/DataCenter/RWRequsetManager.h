@@ -10,6 +10,7 @@
 #import <AFNetworking.h>
 #import "RWRequestIndex.h"
 #import "RWDataModels.h"
+#import "RWOrderView.h"
 
 @protocol RWRequsetDelegate <NSObject>
 
@@ -23,6 +24,14 @@
 
 - (void)requsetOfficeDoctor:(RWDoctorItem *)doctor
             responseMessage:(NSString *)responseMessage;
+
+
+- (void)orderReceipt:(RWOrder *)order
+     responseMessage:(NSString *)responseMessage;
+
+- (void)searchResultOrders:(NSArray *)orders
+           responseMessage:(NSString *)responseMessage;
+
 
 - (void)userLoginSuccess:(BOOL)success
          responseMessage:(NSString *)responseMessage;
@@ -43,8 +52,19 @@
 
 @property (nonatomic,strong)NSDictionary *errorDescription;
 
+
 - (void)obtainOfficeList;
 - (void)obtainOfficeDoctorListWithURL:(NSString *)url page:(NSInteger)page;
 - (void)obtainDoctorWithDoctorID:(NSString *)doctorID;
+
+- (void)bulidOrderWith:(RWOrder *)order;
+
+- (void)searchOrderWithUserName:(NSString *)username
+                    orderStatus:(RWOrderStatus)orderStatus;
+- (void)searchOrderWithDoctorUserName:(NSString *)doctorUserName
+                          orderStatus:(RWOrderStatus)orderStatus;
+- (void)searchOrderWithOrderStatus:(RWOrderStatus)status
+                               fid:(RWServiceSite)fid
+                               pid:(RWServiceType)pid;
 
 @end

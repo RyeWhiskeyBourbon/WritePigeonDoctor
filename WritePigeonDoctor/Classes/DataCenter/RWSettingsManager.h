@@ -25,11 +25,21 @@
 typedef NS_ENUM(NSInteger,AppleProductModels);
 
 @interface RWSettingsManager : NSObject
-
+/**
+ *  获取配置管理者单例对象
+ *
+ *  @return
+ */
 + (instancetype)systemSettings;
-
+/**
+ *  获取苹果设备型号id
+ *
+ *  @return
+ */
 + (AppleProductModels )deviceVersion;
-
+/**
+ *  全部配置信息 （只读）
+ */
 @property (nonatomic,strong,readonly)NSMutableDictionary *settings;
 /**
  *  添加一条设置信息
@@ -72,46 +82,40 @@ typedef NS_ENUM(NSInteger,AppleProductModels);
  *
  *  @return
  */
-+ (NSArray *)obtainAllKeysWithObjectClass:(Class)objectClass;
++ (NSArray *)obtainAllObjectsAtClass:(Class)objectClass;
+
+@end
+
 /**
- *  AddLocalNotification
- *
- *  @param clockString time string
- *  @param name NotificationName
- *  @param content Notification content
+ *  添加本地通知
  */
-- (void)addLocalNotificationWithClockString:(NSString *)clockString
-                                    AndName:(NSString *)name
-                                    content:(NSString *)content;
-/**
- *  cancelLocalNotification
- *
- *  @param name NotificationName
- */
+
+extern NSString *notificationName;
+
+@interface RWSettingsManager (LocalNotifications)
+
+- (void)addLocalNotificationWithTimeString:(NSString *)timeString
+                                      name:(NSString *)name
+                                   content:(NSString *)content;
+
 - (void)cancelLocalNotificationWithName:(NSString *)name;
-/**
- *  AddLocalNotification
- *
- *  @param date    Notification date
- *  @param cycle   Notification cycle
- *  @param name    Notification name
- *  @param content Notification content
- */
-- (void)addAlarmClockWithTime:(NSDate *)date
-                        Cycle:(RWClockCycle)cycle
-                    ClockName:(NSString *)name
-                      Content:(NSString *)content;
+
+- (UILocalNotification *)makeNotificationWithDate:(NSDate *)date
+                                            cycle:(RWClockCycle)cycle
+                                             name:(NSString *)name
+                                          content:(NSString *)content
+                                        soundName:(NSString *)soundName;
 
 @end
 
 typedef NS_ENUM(NSInteger,AppleProductModels)
 {
-    iPhone_2G__A1203,
-    iPhone_3G__A1241_A1324,
-    iPhone_3GS__A1303_A1325,
-    iPhone_4__A1332 = - 2,
-    iPhone_4__A1349 = - 1,
-    iPhone_4S__A1387_A1431 = 0,
+    iPhone_2G__A1203            = -5,
+    iPhone_3G__A1241_A1324      = -4,
+    iPhone_3GS__A1303_A1325     = -3,
+    iPhone_4__A1332             = -2,
+    iPhone_4__A1349             = -1,
+    iPhone_4S__A1387_A1431      = 0,
     iPhone_5__A1428,
     iPhone_5__A1429_A1442,
     iPhone_5c__A1456_A1532,

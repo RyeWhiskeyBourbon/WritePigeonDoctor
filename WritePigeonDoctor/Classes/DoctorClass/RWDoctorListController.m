@@ -115,6 +115,11 @@
     _requestManager.delegate = self;
     
     [_requestManager obtainOfficeDoctorListWithURL:_doctorListUrl page:_page];
+    
+    notification_observe(RWHeaderDownLoadFinishNotification,^(NSNotification * _Nonnull note)
+    {
+        [_doctorList reloadData];
+    });
 }
 
 - (void)requsetOfficeDoctorList:(NSArray *)officeDoctorList responseMessage:(NSString *)responseMessage
@@ -127,11 +132,6 @@
         if (_page == 1)
         {
             _doctorResource = officeDoctorList;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [_doctorList reloadData];
-            });
         }
         else
         {

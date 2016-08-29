@@ -71,6 +71,13 @@
 #define __SEARCH_DOCTOR__ __SERVER_INDEX__@"find_doc.php"
 #endif
 
+#ifndef __BULID_ORDER__
+#define __BULID_ORDER__ __SERVER_INDEX__@"order.php"
+#endif
+
+#ifndef __SEARCH_ORDER__
+#define __SEARCH_ORDER__ __SERVER_INDEX__@"find_order.php"
+#endif
 
 
 

@@ -39,7 +39,13 @@
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
 
+#define CHINESE_SYSTEM(x) [UIFont systemFontOfSize:x]
 
+#define kScreenWidthRatio  (SCREEN_WIDTH / 320.0)
+#define kScreenHeightRatio (SCREEN_HEIGHT / 568.0)
+#define AdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
+#define AdaptedHeight(x) ceilf((x) * kScreenHeightRatio)
+#define AdaptedFontSize(R)     CHINESE_SYSTEM(AdaptedWidth(R))
 
 
 #endif /* Macro_h */

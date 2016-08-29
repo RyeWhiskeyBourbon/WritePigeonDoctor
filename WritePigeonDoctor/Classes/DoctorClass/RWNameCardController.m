@@ -97,7 +97,7 @@ CGPoint offsetWithIndexPath(NSIndexPath *indexPath)
     } isAttention:NO isOpen:^(BOOL isOpen) {
     
         _openIndexPath = isOpen?indexPath:nil;
-        tableView.scrollEnabled = isOpen;
+        tableView.scrollEnabled = !isOpen;
         [tableView reloadData];
     }];
     

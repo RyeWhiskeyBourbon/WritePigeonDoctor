@@ -7,13 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "AppDelegate+Alipay.h"
 #import "RWMainTabBarController.h"
 #import "UMComSession.h"
 #import "UMCommunity.h"
 #import "EMSDK.h"
 #import "UMSocial.h"
 #import "UMSocialSnsService.h"
+#import "RWOrderListController.h"
+#import "WXApi.h"
+
 #define UmengAppkey @"578b015fe0f55a6b7100453b"
+
 @interface AppDelegate ()
 
 @end
@@ -22,17 +27,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    /*********分享*******/
+
+    [self setKeysSettings];
+    [self setSystemSettingsWithApplication:application];
+    [self setWindowSettings];
+    
+    return YES;
+}
+
+- (void)setKeysSettings
+{
     [UMSocialData setAppKey:UmengAppkey];
     [UMSocialData openLog:YES];
     
-
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     EMOptions *options = [EMOptions optionsWithAppkey:__EMSDK_KEY__];
     options.apnsCertName = @"Dev_WPD";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
     
+    if (![WXApi registerApp:@"wx3b4c0f3be08becc9" withDescription:nil])
+    {
+        MESSAGE(@"微信支付初始化失败");
+    }
+}
+
+- (void)setSystemSettingsWithApplication:(UIApplication *)application
+{
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)])
     {
         [application registerForRemoteNotifications];
@@ -64,16 +86,16 @@
         MESSAGE(@"配置列表加载失败");
     }
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)setWindowSettings
+{
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [_window makeKeyAndVisible];
     
     RWMainTabBarController *mainTabBar = [[RWMainTabBarController alloc] init];
-    
     _window.rootViewController = mainTabBar;
-    
-    return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -85,14 +107,19 @@
 {
     MESSAGE(@"error -- %@",error);
 }
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result == FALSE) {
+    
+    if (result == FALSE)
+    {
         //调用其他SDK，例如支付宝SDK等
     }
+    
     return result;
 }
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

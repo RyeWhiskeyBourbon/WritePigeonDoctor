@@ -241,115 +241,9 @@
     return 0x108943;
 }
 
-- (void)addLocalNotificationWithClockString:(NSString *)clockString AndName:(NSString *)name content:(NSString *)content
-{
-    RWClockAttribute attribute = [NSDate clockAttributeWithString:clockString];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE"];
-    NSString *week = [dateFormatter stringFromDate:[NSDate date]];
-    
-    NSInteger afterDays;
-    
-    if (attribute.week == RWClockWeekOfNone)
-    {
-        BOOL isPast = [NSDate isPastTime:attribute.hours minute:attribute.minute];
-        
-        if (isPast)
-        {
-            afterDays = 1;
-        }
-        else
-        {
-            afterDays = 0;
-        }
-    }
-    else
-    {
-        afterDays = [NSDate daysFromClockTimeWithClockWeek:attribute.week
-                                             AndWeekString:week];
-    }
-    
-    NSDate *clockDate = [NSDate buildClockDateWithAfterDays:afterDays
-                                                      Hours:attribute.hours
-                                                  AndMinute:attribute.minute];
-    
-    [self addAlarmClockWithTime:clockDate
-                          Cycle:attribute.cycleType
-                      ClockName:name
-                        Content:content];
-}
-
-- (void)addAlarmClockWithTime:(NSDate *)date Cycle:(RWClockCycle)cycle ClockName:(NSString *)name Content:(NSString *)content
-{
-    UIUserNotificationType types =  UIUserNotificationTypeBadge |
-    UIUserNotificationTypeSound |
-    UIUserNotificationTypeAlert;
-    
-    UIUserNotificationSettings *mySettings =
-    [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    
-    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-    
-    UILocalNotification *notification=[[UILocalNotification alloc] init];
-    
-    if (notification!=nil) {
-        
-        notification.fireDate = date;
-        
-        switch (cycle) {
-                
-            case RWClockCycleOnce:
-                
-                notification.repeatInterval = kCFCalendarUnitEra;
-                
-                break;
-                
-            case RWClockCycleEveryDay:
-                
-                notification.repeatInterval = kCFCalendarUnitDay;
-                
-                break;
-                
-            case RWClockCycleEveryWeek:
-                
-                notification.repeatInterval = kCFCalendarUnitWeekday;
-                
-                break;
-                
-            default:
-                break;
-        }
-        
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-        notification.alertBody = content;
-        notification.applicationIconBadgeNumber = 0;
-        //        notification.userInfo = @{CLOCK_NAMES:name};
-        notification.soundName = @"ClockSound2.mp3";
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
-}
-
-- (void)cancelLocalNotificationWithName:(NSString *)name
-{
-    NSArray *notifications =
-    [[UIApplication sharedApplication] scheduledLocalNotifications];
-    
-    for (int i = 0; i < notifications.count; i++)
-    {
-        //        if ([[[notifications[i] valueForKey:@"userInfo"]
-        //                                objectForKey:CLOCK_NAMES] isEqualToString:name])
-        //        {
-        //            [[UIApplication sharedApplication]
-        //                                        cancelLocalNotification:notifications[i]];
-        //        }
-    }
-}
-
 #pragma mark - runtime
 
-+ (NSArray *)obtainAllKeysWithObjectClass:(Class)objectClass
++ (NSArray *)obtainAllObjectsAtClass:(Class)objectClass
 {
     unsigned int ivarCut = 0;
     
@@ -382,6 +276,122 @@
     }
     
     return mArr;
+}
+
+@end
+
+const NSString *notificationName = @"notificationName";
+
+@implementation RWSettingsManager (LocalNotifications)
+
+- (void)addLocalNotificationWithTimeString:(NSString *)timeString
+                                      name:(NSString *)name
+                                   content:(NSString *)content
+{
+    RWClockAttribute attribute = [NSDate clockAttributeWithString:timeString];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSString *week = [dateFormatter stringFromDate:[NSDate date]];
+    
+    NSInteger afterDays;
+    
+    if (attribute.week == RWClockWeekOfNone)
+    {
+        BOOL isPast = [NSDate isPastTime:attribute.hours minute:attribute.minute];
+        
+        if (isPast)
+        {
+            afterDays = 1;
+        }
+        else
+        {
+            afterDays = 0;
+        }
+    }
+    else
+    {
+        afterDays = [NSDate daysFromClockTimeWithClockWeek:attribute.week
+                                             AndWeekString:week];
+    }
+    
+    NSDate *clockDate = [NSDate buildClockDateWithAfterDays:afterDays
+                                                      Hours:attribute.hours
+                                                  AndMinute:attribute.minute];
+    
+    UILocalNotification *localNoti = [self makeNotificationWithDate:clockDate
+                                                              cycle:attribute.cycleType
+                                                               name:name
+                                                            content:content
+                                                          soundName:@"ClockSound2.mp3"];
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNoti];
+}
+
+- (UILocalNotification *)makeNotificationWithDate:(NSDate *)date
+                                            cycle:(RWClockCycle)cycle
+                                             name:(NSString *)name
+                                          content:(NSString *)content
+                                        soundName:(NSString *)soundName
+{
+    UIUserNotificationType types =  UIUserNotificationTypeBadge |
+                                    UIUserNotificationTypeSound |
+                                    UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings *mySettings =
+                    [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    
+    UILocalNotification *localNotification =[[UILocalNotification alloc] init];
+    
+    if (localNotification) {
+        
+        localNotification.fireDate = date;
+        
+        switch (cycle)
+        {
+            case RWClockCycleOnce:
+                localNotification.repeatInterval = kCFCalendarUnitEra;
+                break;
+                
+            case RWClockCycleEveryDay:
+                localNotification.repeatInterval = kCFCalendarUnitDay;
+                break;
+                
+            case RWClockCycleEveryWeek:
+                localNotification.repeatInterval = kCFCalendarUnitWeekday;
+                break;
+                
+            default:break;
+        }
+        
+        localNotification.timeZone = [NSTimeZone defaultTimeZone];
+        localNotification.alertBody = content;
+        localNotification.applicationIconBadgeNumber = 0;
+        localNotification.userInfo = @{notificationName:name};
+        localNotification.soundName = soundName;
+        
+        return localNotification;
+    }
+    
+    return nil;
+}
+
+- (void)cancelLocalNotificationWithName:(NSString *)name
+{
+    NSArray *notifications = [[UIApplication sharedApplication]
+                                                        scheduledLocalNotifications];
+    
+    for (UILocalNotification *noti in notifications)
+    {
+        NSString *notiName = [noti.userInfo objectForKey:notificationName];
+        
+        if ([notiName isEqualToString:name])
+        {
+            [[UIApplication sharedApplication] cancelLocalNotification:noti];
+        }
+    }
 }
 
 @end

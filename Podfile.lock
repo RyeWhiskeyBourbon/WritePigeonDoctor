@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - HyphenateFullSDK (3.1.4)
+  - IQKeyboardManager (4.0.4)
   - Masonry (1.0.1)
   - MJRefresh (3.1.12)
   - SVProgressHUD (2.0.3)
@@ -26,6 +27,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - HyphenateFullSDK (from `https://github.com/easemob/hyphenate-full-cocoapods.git`)
+  - IQKeyboardManager
   - Masonry (~> 1.0.1)
   - MJRefresh (~> 3.1.10)
   - SVProgressHUD (~> 2.0.3)
@@ -44,6 +46,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   HyphenateFullSDK: 0640f9710da83da7a08928f074da718ed3368277
+  IQKeyboardManager: 4a6f83b540283c2645aaeba2bd8dc0f09b5c77f8
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4

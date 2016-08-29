@@ -55,6 +55,8 @@
 
 @protocol RWRegisterOfficeViewDelegate <NSObject>
 
+@optional
+
 - (void)consultWayAtRegisterOffice:(RWRegisterOfficeView *)registerOffice;
 - (void)startConsultAtRegisterOffice:(RWRegisterOfficeView *)registerOffice;
 

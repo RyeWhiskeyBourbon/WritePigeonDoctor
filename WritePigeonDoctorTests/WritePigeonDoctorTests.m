@@ -15,8 +15,13 @@
 #import "UMComImageUrl.h"
 #import "UMComMacroConfig.h"
 #import "RWDataBaseManager.h"
+#import "RWOrderView.h"
 
 @interface WritePigeonDoctorTests : XCTestCase
+
+<
+    RWRequsetDelegate
+>
 
 @end
 
@@ -25,6 +30,91 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+}
+
+- (void)testLogin
+{
+    RWRequsetManager *requsetManager = [[RWRequsetManager alloc] init];
+    requsetManager.delegate = self;
+    
+    [requsetManager userinfoWithUsername:@"18562599337" AndPassword:@"qwertyu"];
+
+    CFRunLoopRun();
+}
+
+- (void)userLoginSuccess:(BOOL)success responseMessage:(NSString *)responseMessage
+{
+    XCTAssertTrue(success);
+    
+    CFRunLoopRef ref = CFRunLoopGetCurrent();
+    CFRunLoopStop(ref);
+}
+
+
+- (void)testBulidOrder
+{
+    RWServiceDetail *detail = [[RWServiceDetail alloc] init];
+    
+    detail.name = @"RyeWhiskey";
+    detail.contactWay = @"18562599337";
+    detail.date = @"2016-8-30";
+    detail.province = @"山东省";
+    detail.hospital = @"青医附院";
+    detail.office = @"精神科";
+    detail.address = @"青岛市市北区江苏路100号";
+    detail.doctor = @"马医生";
+    detail.comments = @"精神分裂";
+    detail.serviceType = @(RWServiceTypeAccompanyTreat);
+    detail.serviceSite = @(RWServiceSiteInHospital);
+    
+    RWOrder *order = [RWOrder appointmentOrderWithUserName:@"18562599337" servicedescription:detail];
+    
+    RWRequsetManager *requsetManager = [[RWRequsetManager alloc] init];
+    requsetManager.delegate = self;
+    
+    [requsetManager bulidOrderWith:order];
+    
+    CFRunLoopRun();
+}
+
+- (void)orderReceipt:(RWOrder *)order responseMessage:(NSString *)responseMessage
+{
+    XCTAssertNotNil(order);
+    
+    CFRunLoopRef ref = CFRunLoopGetCurrent();
+    CFRunLoopStop(ref);
+}
+
+- (void)testService
+{
+    RWServiceDetail *detail = [[RWServiceDetail alloc] init];
+    
+    detail.name = @"RyeWhiskey";
+    detail.contactWay = @"18562599337";
+    detail.date = @"2016-8-30";
+    detail.province = @"山东省";
+    detail.hospital = @"青医附院";
+    detail.office = @"精神科";
+    detail.address = @"青岛市市北区江苏路100号";
+    detail.doctor = @"马医生";
+    detail.comments = @"精神分裂";
+    detail.serviceType = @(RWServiceTypeAccompanyTreat);
+    detail.serviceSite = @(RWServiceSiteInHospital);
+    
+    NSLog(@"%@",detail.description);
+    
+    RWServiceDetail *de = [RWServiceDetail serviceDetailWithDescription:detail.description];
+    
+    NSLog(@"%@",de.description);
+}
+
+- (void)testOffice
+{
+    RWRequsetManager *manager = [[RWRequsetManager alloc] init];
+    
+    [manager obtainOfficeDoctorListWithURL:@"http://api.zhongyuedu.com/bg/ks/list_ebh.php" page:1];
+    
+    CFRunLoopRun();
 }
 
 - (void)testRegister

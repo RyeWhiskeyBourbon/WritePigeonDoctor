@@ -14,6 +14,7 @@
 #import "UMComBriefEditViewController.h"
 #import "RWWelcomeController.h"
 #import <WebKit/WebKit.h>
+#import "SeeDoctorNavTableViewController.h"
 
 @interface RWMainViewController ()
 
@@ -48,6 +49,7 @@
     
     [config.userContentController addScriptMessageHandler:self name:@"LookForDoctor"];
     [config.userContentController addScriptMessageHandler:self name:@"MakeQuestion"];
+    [config.userContentController addScriptMessageHandler:self name:@"AccompanyTreat"];
     
     _informationView = [[WKWebView alloc] initWithFrame:self.view.bounds
                                           configuration:config];
@@ -79,6 +81,13 @@
         RWOfficeListController *office = [[RWOfficeListController alloc] init];
         
         [self pushNextWithViewcontroller:office];
+    }
+    else if ([message.name isEqualToString:@"AccompanyTreat"])
+    {
+        SeeDoctorNavTableViewController *seeDoctor =
+                                    [[SeeDoctorNavTableViewController alloc] init];
+        
+        [self pushNextWithViewcontroller:seeDoctor];
     }
     else if ([message.name isEqualToString:@"MakeQuestion"])
     {
