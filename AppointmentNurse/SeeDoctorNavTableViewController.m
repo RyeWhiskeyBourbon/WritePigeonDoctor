@@ -14,12 +14,15 @@
 @interface SeeDoctorNavTableViewController ()
 <
     UITableViewDelegate,
-    UITableViewDataSource
+    UITableViewDataSource,
+    RWRequsetDelegate
 >
 
 @property (nonatomic,strong)UITableView *doctorNavTableView;
 
 @property (nonatomic,strong)NSArray *resource;
+
+@property (nonatomic,strong)RWRequsetManager *requestManager;
 
 @end
 
@@ -53,10 +56,41 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"就医导航";
+    _requestManager = [[RWRequsetManager alloc] init];
+    _requestManager.delegate = self;
+    
     [self makeResource];
     [self initView];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (!_resource)
+    {
+        [_requestManager obtainServicesList];
+    }
+}
+
+- (void)requsetServicesList:(NSArray *)servicesList responseMessage:(NSString *)responseMessage
+{
+    if (servicesList)
+    {
+        _resource = servicesList;
+        
+        if (self.view.window)
+        {
+            [_doctorNavTableView reloadData];
+        }
+    }
+    else
+    {
+        [RWSettingsManager promptToViewController:self
+                                            Title:responseMessage
+                                         response:nil];
+    }
+}
 
 - (void)initView
 {

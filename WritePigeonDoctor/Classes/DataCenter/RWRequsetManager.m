@@ -19,8 +19,8 @@
 
 #pragma mark - init
 
-- (instancetype)init {
-    
+- (instancetype)init
+{
     self = [super init];
     
     if (self) {
@@ -211,6 +211,68 @@
             if (found_response(_delegate,@"requsetOfficeDoctor:responseMessage:"))
             {
                 [_delegate requsetOfficeDoctor:nil
+                               responseMessage:@"服务器连接失败"];
+            }
+        }
+    }];
+}
+
+- (void)obtainServicesList
+{
+    [_requestManager POST:@"" parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *Json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        if ([Json[@"resultcode"] integerValue] == 200)
+        {
+            NSArray *JsonServices = Json[@"result"];
+            
+            NSMutableArray *services = [[NSMutableArray alloc] init];
+            
+            for (NSDictionary *service in JsonServices)
+            {
+                [services addObject:
+                 
+                     [RWService serviceWithServiceImage:service[@"image"]
+                                            serviceName:service[@"servicename"]
+                                               maxMoney:service[@"max"]
+                                               minMoney:service[@"min"]
+                                              serviceId:
+                                    [serviceTypeWithString(service[@"id"]) integerValue]
+                                     serviceDescription:service[@"servicedes"]]
+                 ];
+            }
+            
+            if (found_response(_delegate,@"requsetServicesList:responseMessage:"))
+            {
+                [_delegate requsetServicesList:services
+                               responseMessage:nil];
+            }
+        }
+        else
+        {
+            if (found_response(_delegate,@"requsetServicesList:responseMessage:"))
+            {
+                [_delegate requsetServicesList:nil
+                               responseMessage:@"服务列表获取失败"];
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (!__NET_STATUS__)
+        {
+            if (found_response(_delegate,@"requsetServicesList:responseMessage:"))
+            {
+                [_delegate requsetServicesList:nil
+                               responseMessage:@"网络连接失败，请检查网络"];
+            }
+        }
+        else
+        {
+            if (found_response(_delegate,@"requsetServicesList:responseMessage:"))
+            {
+                [_delegate requsetServicesList:nil
                                responseMessage:@"服务器连接失败"];
             }
         }

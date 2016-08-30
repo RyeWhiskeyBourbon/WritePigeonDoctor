@@ -68,7 +68,8 @@
         [self.navigationController.navigationBar addSubview:_segmentControl];
     }
     
-    [_requestManager searchOrderWithUserName:_user.username];
+    [_requestManager searchOrderWithUserName:_user.username
+                                 orderStatus:0];
 }
 
 - (void)searchResultOrders:(NSArray *)orders responseMessage:(NSString *)responseMessage
