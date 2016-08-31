@@ -164,14 +164,14 @@ NSNumber *serviceSiteWithString(NSString * serviceSite);
 
 @interface RWService : NSObject
 
-+ (instancetype)serviceWithServiceImage:(UIImage *)serviceImage
++ (instancetype)serviceWithServiceImage:(NSString *)serviceImage
                             serviceName:(NSString *)serviceName
                                maxMoney:(NSString *)maxMoney
                                minMoney:(NSString *)minMoney
                               serviceId:(RWServiceType)serviceId
                      serviceDescription:(NSString *)serviceDescription;
 
-@property (nonatomic,strong)UIImage *serviceImage;
+@property (nonatomic,copy)NSString *serviceImage;
 @property (nonatomic,copy)NSString *serviceName;
 @property (nonatomic,copy)NSString *maxMoney;
 @property (nonatomic,copy)NSString *minMoney;

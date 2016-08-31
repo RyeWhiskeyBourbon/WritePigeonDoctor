@@ -804,7 +804,7 @@ NSNumber *serviceSiteWithString(NSString *serviceSite)
 
 @implementation RWService
 
-+ (instancetype)serviceWithServiceImage:(UIImage *)serviceImage
++ (instancetype)serviceWithServiceImage:(NSString *)serviceImage
                             serviceName:(NSString *)serviceName
                                maxMoney:(NSString *)maxMoney
                                minMoney:(NSString *)minMoney

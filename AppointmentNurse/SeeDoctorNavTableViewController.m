@@ -28,28 +28,6 @@
 
 @implementation SeeDoctorNavTableViewController
 
-- (void)makeResource
-{
-    _resource = @[[RWService serviceWithServiceImage:[UIImage imageNamed:@"孕妇陪诊"]
-                                         serviceName:@"孕妇陪诊"
-                                            maxMoney:@"699"
-                                            minMoney:@"399"
-                                           serviceId:RWServiceTypeAccompanyTreat
-                                  serviceDescription:@"孕妇陪诊描述"],
-                  [RWService serviceWithServiceImage:[UIImage imageNamed:@"取化验单"]
-                                         serviceName:@"取化验单"
-                                            maxMoney:@"80"
-                                            minMoney:nil
-                                           serviceId:RWServiceTypeGetTestReport
-                                  serviceDescription:@"取化验单描述"],
-                  [RWService serviceWithServiceImage:[UIImage imageNamed:@"打针输液"]
-                                         serviceName:@"打针输液"
-                                            maxMoney:@"699"
-                                            minMoney:@"399"
-                                           serviceId:RWServiceTypeAccompanyTreat
-                                  serviceDescription:@"打针输液描述"]];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,7 +37,6 @@
     _requestManager = [[RWRequsetManager alloc] init];
     _requestManager.delegate = self;
     
-    [self makeResource];
     [self initView];
 }
 
@@ -75,6 +52,9 @@
 
 - (void)requsetServicesList:(NSArray *)servicesList responseMessage:(NSString *)responseMessage
 {
+    [_doctorNavTableView.mj_header endRefreshing];
+    [_doctorNavTableView.mj_footer endRefreshing];
+    
     if (servicesList)
     {
         _resource = servicesList;
@@ -136,7 +116,9 @@
     
     RWService *service = _resource[indexPath.row];
     
-    cell.docNavImg.image = service.serviceImage;
+    [cell.docNavImg setImageWithURL:[NSURL URLWithString:service.serviceImage]
+                        placeholder:nil];
+
     cell.doctorWayLabel.text = service.serviceName;
     cell.wayDesLabel.text = service.serviceDescription;
     
@@ -165,12 +147,12 @@
 
 -(void)refreshHeaderAction:(MJRefreshHeader *) header
 {
-    [_doctorNavTableView.mj_header endRefreshing];
+    [_requestManager obtainServicesList];
 }
 
 -(void)refreshFooterAction:(MJRefreshFooter *) footer
 {
-    [_doctorNavTableView.mj_footer endRefreshing];
+    [_requestManager obtainServicesList];
 }
 
 @end

@@ -170,7 +170,8 @@
         case 0:
         {
             PubHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PubHeaderCell class]) forIndexPath:indexPath];
-            cell.docNavImg.image = _orderService.serviceImage;
+            
+            [cell.docNavImg setImageWithURL:[NSURL URLWithString:_orderService.serviceImage] placeholder:nil];
             cell.doctorWayLabel.text = _orderService.serviceName;
             
             if (!_serviceDetail.serviceSite || _orderService.serviceId == 2)

@@ -71,6 +71,8 @@
 #define __SEARCH_DOCTOR__ __SERVER_INDEX__@"find_doc.php"
 #endif
 
+#define __SERVICES_LIST__ __SERVER_INDEX__@"find_price.php"
+
 #ifndef __BULID_ORDER__
 #define __BULID_ORDER__ __SERVER_INDEX__@"order.php"
 #endif

@@ -219,7 +219,10 @@
 
 - (void)obtainServicesList
 {
-    [_requestManager POST:@"" parameters:@{} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [_requestManager POST:__SERVICES_LIST__
+               parameters:@{@"udid":__TOKEN_KEY__}
+                 progress:nil
+                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary *Json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
@@ -235,10 +238,10 @@
                  
                      [RWService serviceWithServiceImage:service[@"image"]
                                             serviceName:service[@"servicename"]
-                                               maxMoney:service[@"max"]
-                                               minMoney:service[@"min"]
+                                               maxMoney:service[@"maxmoney"]
+                                               minMoney:service[@"minmoney"]
                                               serviceId:
-                                    [serviceTypeWithString(service[@"id"]) integerValue]
+                                                    [service[@"serviceid"] integerValue]
                                      serviceDescription:service[@"servicedes"]]
                  ];
             }
